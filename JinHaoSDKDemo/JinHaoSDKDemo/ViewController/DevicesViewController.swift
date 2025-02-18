@@ -73,13 +73,13 @@ class DevicesViewController: BaseViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         devices = []
         rssiDictionary = [:]
-        deviceManager?.statusDelegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         deviceManager = AccessoryManager()
         deviceManager?.scanningDelegate = self
+        deviceManager?.statusDelegate = self
         updateConnectButton()
 
         navigationItem.leftBarButtonItem?.isEnabled = true
@@ -198,11 +198,14 @@ extension DevicesViewController {
     }
     
     func accessoryManager(_ manager: AccessoryManager?, didDiscover device: Accessory?, rssi: NSNumber?) {
-        rssiDictionary[device!.deviceId] = rssi
+        guard let device = device as? JinHaoAccessory else { return }
+        rssiDictionary[device.deviceId] = rssi
         refreshTable()
     }
     
     func accessoryManager(_ manager: AccessoryManager?, didUpdate device: Accessory?, rssi: NSNumber?) {
+        guard let device = device as? JinHaoAccessory else { return }
+
         if let rssi = rssi {
             var strength = rssi.intValue
             
@@ -211,7 +214,7 @@ extension DevicesViewController {
             }
             
             if strength < 0 {
-                rssiDictionary[device!.deviceId] = strength as NSNumber
+                rssiDictionary[device.deviceId] = strength as NSNumber
                 refreshCells()
             }
         }

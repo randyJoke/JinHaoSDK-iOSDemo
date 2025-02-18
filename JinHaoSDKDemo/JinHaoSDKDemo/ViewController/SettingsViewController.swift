@@ -48,11 +48,10 @@ class SettingsViewController: BaseViewController {
         
         if accessory.state == AccessoryState.disconnected {
             let _ = accessory.connect(with: self, tag: "")
+            //disconnect -- accessory.disconnect()
         } else {
             
         }
-        accessoryManager = AccessoryManager()
-        accessoryManager.statusDelegate = self
         
         JinHaoLog.enable = true
         configureBaseController(withTitle: accessory.name)
@@ -191,7 +190,14 @@ class SettingsViewController: BaseViewController {
             dsp.eq2000 = Int(roundedValue)
             self.showSpinnerView(in: self)
             self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
-                                   complete: { [weak self] _ in
+                                   complete: { [weak self] result in
+                switch result {
+                case let .success(data):
+                    break
+                    
+                case let .error(error):
+                    break
+                }
                 self?.hideSpinnerView()
             })
         }
@@ -223,12 +229,6 @@ class SettingsViewController: BaseViewController {
      */
 }
 
-extension SettingsViewController: AccessoryManagerStatusDelegate {
-    
-    func accessoryManager(_ manager: AccessoryManager?, isAvailable: Bool) {
-        print("bluetooth is available: \(isAvailable)")
-    }
-}
 
 extension SettingsViewController: AccessoryDelegate {
     
