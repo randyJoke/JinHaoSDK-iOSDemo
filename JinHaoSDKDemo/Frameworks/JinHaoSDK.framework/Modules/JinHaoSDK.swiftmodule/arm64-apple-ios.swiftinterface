@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 6.0.2 effective-5.10 (swiftlang-6.0.2.1.2 clang-1600.0.26.4)
-// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name JinHaoSDK
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -enable-experimental-feature OpaqueTypeErasure -enable-bare-slash-regex -module-name JinHaoSDK
 import CoreBluetooth
 import Foundation
 import Swift
@@ -508,6 +508,7 @@ extension JinHaoSDK.AccessoryManager : CoreBluetooth.CBCentralManagerDelegate {
 }
 @objc @_inheritsConvenienceInitializers public class JinHaoLog : ObjectiveC.NSObject {
   public static var enable: Swift.Bool
+  public static func sdkVersion() -> Swift.String
   @objc override dynamic public init()
   @objc deinit
 }

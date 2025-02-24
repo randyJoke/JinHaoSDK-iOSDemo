@@ -54,6 +54,7 @@ class SettingsViewController: BaseViewController {
         }
         
         JinHaoLog.enable = true
+        print("sdk version is \(JinHaoLog.sdkVersion())")
         configureBaseController(withTitle: accessory.name)
     }
     
@@ -264,6 +265,11 @@ extension SettingsViewController: AccessoryDelegate {
             break
         }
         self.showSpinnerView(in: self)
+        print("name is \(device.name)")
+        print("local name is \(device.localName ?? "nil")")
+        print("orientation is \(device.orientation)")
+        print("mac address is \(device.address)")
+        
         device.request(
             requests: [
                 //read current program(runMode) and volume
