@@ -16,13 +16,13 @@
 		F37C4AD32D5B450C00F1A2EC /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C4AD12D5B450C00F1A2EC /* BaseViewController.swift */; };
 		F37C4AD62D5B453000F1A2EC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C4AD52D5B453000F1A2EC /* SettingsViewController.swift */; };
 		F37C4AD72D5B453000F1A2EC /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C4AD42D5B453000F1A2EC /* DevicesViewController.swift */; };
-		F37C4AD82D5B45DF00F1A2EC /* JinHaoSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37C4AB72D5B444800F1A2EC /* JinHaoSDK.framework */; };
-		F37C4AD92D5B45DF00F1A2EC /* JinHaoSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F37C4AB72D5B444800F1A2EC /* JinHaoSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F37C4AE22D5B460900F1A2EC /* RequestSpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C4ADC2D5B460900F1A2EC /* RequestSpinnerViewController.swift */; };
 		F37C4AE32D5B460900F1A2EC /* DeviceSetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C4ADE2D5B460900F1A2EC /* DeviceSetTableViewCell.swift */; };
 		F37C4AE42D5B460900F1A2EC /* AKPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C4ADB2D5B460900F1A2EC /* AKPickerView.swift */; };
 		F37C4AE52D5B460900F1A2EC /* DevInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C4ADF2D5B460900F1A2EC /* DevInfoTableViewCell.swift */; };
 		F37C4AE92D5C2D6100F1A2EC /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37C4AE82D5C2D6100F1A2EC /* SettingsViewController.xib */; };
+		F3EEE3CC2D9295FE00D05C05 /* JinHaoSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEE3CB2D9295FE00D05C05 /* JinHaoSDK.xcframework */; };
+		F3EEE3CD2D9295FE00D05C05 /* JinHaoSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEE3CB2D9295FE00D05C05 /* JinHaoSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,7 +32,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F37C4AD92D5B45DF00F1A2EC /* JinHaoSDK.framework in Embed Frameworks */,
+				F3EEE3CD2D9295FE00D05C05 /* JinHaoSDK.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,7 +41,6 @@
 
 /* Begin PBXFileReference section */
 		F37C4A9B2D5B418600F1A2EC /* JinHaoSDKDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JinHaoSDKDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F37C4AB72D5B444800F1A2EC /* JinHaoSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JinHaoSDK.framework; sourceTree = "<group>"; };
 		F37C4AB92D5B444800F1A2EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F37C4ABA2D5B444800F1A2EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F37C4ABB2D5B444800F1A2EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,6 +56,7 @@
 		F37C4ADE2D5B460900F1A2EC /* DeviceSetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSetTableViewCell.swift; sourceTree = "<group>"; };
 		F37C4ADF2D5B460900F1A2EC /* DevInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevInfoTableViewCell.swift; sourceTree = "<group>"; };
 		F37C4AE82D5C2D6100F1A2EC /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		F3EEE3CB2D9295FE00D05C05 /* JinHaoSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = JinHaoSDK.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F37C4AD82D5B45DF00F1A2EC /* JinHaoSDK.framework in Frameworks */,
+				F3EEE3CC2D9295FE00D05C05 /* JinHaoSDK.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +92,7 @@
 		F37C4AB82D5B444800F1A2EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F37C4AB72D5B444800F1A2EC /* JinHaoSDK.framework */,
+				F3EEE3CB2D9295FE00D05C05 /* JinHaoSDK.xcframework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";

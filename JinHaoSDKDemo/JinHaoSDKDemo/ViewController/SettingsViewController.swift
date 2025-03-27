@@ -53,7 +53,7 @@ class SettingsViewController: BaseViewController {
             
         }
         
-        JinHaoLog.enable = true
+        JinHaoLog.enable = false
         print("sdk version is \(JinHaoLog.sdkVersion())")
         configureBaseController(withTitle: accessory.name)
     }
@@ -270,18 +270,42 @@ extension SettingsViewController: AccessoryDelegate {
         print("orientation is \(device.orientation)")
         print("mac address is \(device.address)")
         
+        //you can get number of program
+        device.request(request: .readNumberOfPrograms(chip: device.hearChip), complete: { r in
+            if case .success = r, let number = device.numberOfProgram {
+                //program
+                print("number of programs is \(number), so device.program is 0 ~ \(number - 1)")
+            }
+        })
+        
+        //You can obtain the scene mode corresponding to each program, for example, the scene mode of program 0 is scenesOfProgram[0]
+        device.request(request: .readScenesOfProgram, complete: { r in
+            if case .success = r {
+                print("mode of programs is \(device.profile.programs)")
+                for (index, value) in device.profile.programs.enumerated() {
+                    print("program is: \(index), mode is: \(value)")
+                }
+            } else {
+                //if error, this is default
+                print("mode of programs is \(device.profile.programs)")
+                for (index, value) in device.profile.programs.enumerated() {
+                    print("program is: \(index), mode is: \(value)")
+                }
+            }
+        })
+        
         device.request(
             requests: [
                 //read current program(runMode) and volume
                 .readProgramVolume,
-                //read dsp with program 1 ~ 4
-                .readDsp(program: 1),
-                .readDsp(program: 2),
-                .readDsp(program: 3),
-                .readDsp(program: 4)
+                //read dsp with program 0 ~ 3
+//                .readDsp(program: 0),    device.program is 0 ~ (device.numberOfProgram - 1)
             ],
             complete: { [weak self] in
                 self?.hideSpinnerView()
+                if let program = device.program {
+                    print("current program is \(program), mode is \(device.scenesOfProgram[program])")
+                }
             })
     }
 }
@@ -309,7 +333,7 @@ extension SettingsViewController: JinHaoAccessoryDelegate {
             self.volumeSlider.value = Float(v)
         }
         
-        if let p = accessory.program {
+        if let p = accessory.program{
             self.programSeg.selectedSegmentIndex = p
         }
         

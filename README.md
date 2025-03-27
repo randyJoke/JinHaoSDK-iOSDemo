@@ -21,6 +21,12 @@ public class JinHaoAccessory: Accessory {
     // 0 ~ 3
     public var program: Int?
     
+    //You can access the total number of programs in the hearing aid, but no more than four.
+    public var numberOfProgram: Int? 
+    
+    //You can obtain the scene mode corresponding to each program, for example, the scene mode of program 0 is scenesOfProgram[0]
+    public var scenesOfProgram: [JinHaoProgram] 
+    
     // 0 ~ 10
     public var volume: Int? {
         if let p = program {
@@ -96,7 +102,45 @@ func accessoryManager(_ manager: AccessoryManager?, isScanning: Bool) {
 func accessoryManager(_ manager: AccessoryManager?, didDiscover device: Accessory?, rssi: NSNumber?) {
      /// JinHaoAccessory is a subclass of Accessory.
      guard let device = device as? JinHaoAccessory else { return }
+     
+     
+    //you can get number of programs
+    device.request(request: .readNumberOfPrograms(chip: device.hearChip), complete: { r in
+        if case .success = r, let number = device.numberOfProgram {
+            //program
+            print("number of programs is \(number), so device.program is 0 ~ \(number - 1)")
+        }
+    })
 
+    //you can get the mode of programs
+    device.request(request: .readScenesOfProgram, complete: { r in
+        if case .success = r {
+            print("mode of programs is \(device.profile.programs)")
+            for (index, value) in device.profile.programs.enumerated() {
+                print("program is: \(index), mode is: \(value)")
+            }
+        } else {
+            //if error, this is default
+            print("mode of programs is \(device.profile.programs)")
+            for (index, value) in device.profile.programs.enumerated() {
+                print("program is: \(index), mode is: \(value)")
+            }
+        }
+    })
+
+    device.request(
+        requests: [
+            //read current program(runMode) and volume
+            .readProgramVolume,
+            //read dsp with program 0 ~ 3
+    //                .readDsp(program: 0),    device.program is 0 ~ (device.numberOfProgram - 1)
+        ],
+        complete: { [weak self] in
+            self?.hideSpinnerView()
+            if let program = device.program {
+                print("current program is \(program), mode is \(device.scenesOfProgram[program])")
+            }
+        })
 }
 
 func accessoryManager(_ manager: AccessoryManager?, didUpdate device: Accessory?, rssi: NSNumber?) {

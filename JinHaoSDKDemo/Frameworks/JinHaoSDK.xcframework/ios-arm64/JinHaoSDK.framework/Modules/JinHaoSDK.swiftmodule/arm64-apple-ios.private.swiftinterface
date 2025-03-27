@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 6.0.2 effective-5.10 (swiftlang-6.0.2.1.2 clang-1600.0.26.4)
-// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -enable-experimental-feature OpaqueTypeErasure -enable-bare-slash-regex -module-name JinHaoSDK
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name JinHaoSDK
 import CoreBluetooth
 import Foundation
 import Swift
@@ -67,6 +67,9 @@ public struct JinHaoProfile : Swift.Codable {
   public var seriesCode: Swift.String
   public var adName: Swift.String
   public var reservedField: JinHaoSDK.JinHaoProfileReservedField?
+  public var programs: [JinHaoSDK.JinHaoProgram] {
+    get
+  }
   public init()
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
@@ -112,6 +115,17 @@ public struct PL3CompRatio {
   public init(data: Foundation.Data)
   public func toData() -> Foundation.Data
   public func description(value: Swift.UInt8) -> Swift.String
+}
+public enum JinHaoProgram : Swift.Int {
+  case normal
+  case restaurant
+  case outdoor
+  case music
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
 }
 public enum JinHaoChip : Swift.UInt8, Swift.Codable {
   case h01
@@ -191,6 +205,8 @@ public enum JinHaoRequest {
   case readProgramVolume
   case readVolume(program: Swift.Int)
   case readDsp(program: Swift.Int)
+  case readNumberOfPrograms(chip: JinHaoSDK.JinHaoChip)
+  case readScenesOfProgram
   case readGlobalDsp(chip: JinHaoSDK.JinHaoChip)
   case readProfile(type: JinHaoSDK.JinHaoProfileType)
   case writeDsp(dsp: any JinHaoSDK.JinHaoDsp, program: Swift.Int, withResponse: Swift.Bool)
@@ -226,29 +242,63 @@ public protocol JinHaoAccessoryDelegate : JinHaoSDK.AccessoryDelegate {
   func didUpdateValue(_ accessory: JinHaoSDK.JinHaoAccessory, request: JinHaoSDK.JinHaoRequest)
 }
 @objc @_inheritsConvenienceInitializers public class JinHaoAccessory : JinHaoSDK.Accessory {
-  public var address: Swift.String
-  public var orientation: JinHaoSDK.AccessoryOrientation
-  public var hearChip: JinHaoSDK.JinHaoChip
-  public var bleChip: JinHaoSDK.JinHaoBLEChip
-  public var bat: Swift.Int?
-  public var program: Swift.Int?
-  public var volume: Swift.Int? {
+  public var address: Swift.String {
     get
   }
-  public var volumeDic: [Swift.Int : Swift.Int]
-  public var dspDic: [Swift.Int : any JinHaoSDK.JinHaoDsp]
-  public var dsp: (any JinHaoSDK.JinHaoDsp)? {
+  public var orientation: JinHaoSDK.AccessoryOrientation {
     get
   }
-  public var global: (any JinHaoSDK.JinHaoGlobalDsp)?
-  public var profile: JinHaoSDK.JinHaoProfile
-  public var brEdr: Swift.Bool
-  public var transEnable: Swift.Bool
-  public var transLevel: Swift.Int?
-  public var hearingSupported: Swift.Bool
+  public var hearChip: JinHaoSDK.JinHaoChip {
+    get
+  }
+  public var bleChip: JinHaoSDK.JinHaoBLEChip {
+    get
+  }
+  public var bat: Swift.Int? {
+    get
+  }
+  public var program: Swift.Int? {
+    get
+  }
+  public var volumeDic: [Swift.Int : Swift.Int] {
+    get
+  }
+  public var dspDic: [Swift.Int : any JinHaoSDK.JinHaoDsp] {
+    get
+  }
+  public var global: (any JinHaoSDK.JinHaoGlobalDsp)? {
+    get
+  }
+  public var profile: JinHaoSDK.JinHaoProfile {
+    get
+  }
+  public var brEdr: Swift.Bool {
+    get
+  }
+  public var transEnable: Swift.Bool {
+    get
+  }
+  public var transLevel: Swift.Int? {
+    get
+  }
+  public var hearingSupported: Swift.Bool {
+    get
+  }
   override public var localName: Swift.String? {
     get
     set
+  }
+  public var numberOfProgram: Swift.Int? {
+    get
+  }
+  public var scenesOfProgram: [JinHaoSDK.JinHaoProgram] {
+    get
+  }
+  public var volume: Swift.Int? {
+    get
+  }
+  public var dsp: (any JinHaoSDK.JinHaoDsp)? {
+    get
   }
   public init(peripheral: CoreBluetooth.CBPeripheral, mfgData: Foundation.Data, manager: JinHaoSDK.AccessoryManager)
   public func request(request: JinHaoSDK.JinHaoRequest, complete: ((JinHaoSDK.JinHaoResult) -> Swift.Void)?)
@@ -293,6 +343,7 @@ public struct PL3Response {
   public let data: Foundation.Data
 }
 public protocol JinHaoGlobalDsp {
+  var numberOfPrograms: Swift.Int { get }
   init(data: Foundation.Data)
   func toData() -> Foundation.Data
 }
@@ -603,6 +654,9 @@ public struct JinHaoParameters {
 extension JinHaoSDK.JinHaoProfileType : Swift.Equatable {}
 extension JinHaoSDK.JinHaoProfileType : Swift.Hashable {}
 extension JinHaoSDK.JinHaoProfileType : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoProgram : Swift.Equatable {}
+extension JinHaoSDK.JinHaoProgram : Swift.Hashable {}
+extension JinHaoSDK.JinHaoProgram : Swift.RawRepresentable {}
 extension JinHaoSDK.JinHaoChip : Swift.Equatable {}
 extension JinHaoSDK.JinHaoChip : Swift.Hashable {}
 extension JinHaoSDK.JinHaoChip : Swift.RawRepresentable {}

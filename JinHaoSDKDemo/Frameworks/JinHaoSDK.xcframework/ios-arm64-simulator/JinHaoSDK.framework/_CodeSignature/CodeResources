@@ -6,75 +6,75 @@
 	<dict>
 		<key>Info.plist</key>
 		<data>
-		onrTYTlEhgCm5qQRuNvmMJ+Exfg=
+		kgZHTJHz+p8WPMUU5uvX0bHjzNs=
 		</data>
-		<key>Modules/JinHaoSDK.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
+		<key>Modules/JinHaoSDK.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		+9qSDhJVEa8pxCQopRKI/u6/eAg=
+		sOJWr2NMKUm56PPRLokB/vO12Q0=
 		</data>
-		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.abi.json</key>
+		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		3ZYnrzxsO7+78FKMae+TY7xuvSM=
+		Vwz3cBvJNyUbI9nn7gYtCRI5iRw=
 		</data>
-		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
+		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		Cey7r3R+LYBS2if/5HTK20o70Zo=
+		yHPWCq9OE49QF93LgWa65jZADEA=
 		</data>
-		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
+		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		U4vSwEiRsoxYf2HMIoBmcaWfGwc=
+		iFMojxEV9I34q119x2sfpAYMGmY=
 		</data>
-		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
+		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		Cey7r3R+LYBS2if/5HTK20o70Zo=
+		yHPWCq9OE49QF93LgWa65jZADEA=
 		</data>
-		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
+		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		6ItOueeQjjhJy8jDM3E1kYqQ4+o=
+		v6A9JslSoyk7o/uMAw5pgDsIUA8=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Modules/JinHaoSDK.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
+		<key>Modules/JinHaoSDK.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			rQjEh1a46w/Z3jw9gSw8/yq6jog2F/XGlYxHoCukbZs=
+			faQoio7ZvGEZL7rKV8kBjxsIeVOtrpX8idU4FuwTJ3s=
 			</data>
 		</dict>
-		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.abi.json</key>
+		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			O8Qhe5BRx/NosqpqZshY9+KMfqEn6kHZoO6KxkyxlrA=
+			4U9kpe5EfStPqWg/hp7x9ywICrTgKCeEttDf3Pf0mEY=
 			</data>
 		</dict>
-		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
+		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sCEVy8cTVnERQOlFGqMnt4uavEn2wHXE3QGSrk8vs6c=
+			rELaDgnSeN+tiu2F5GVV9YSjar+Oj04g44pYltwl+UU=
 			</data>
 		</dict>
-		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
+		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			AFkaZlr+/HuJ/6CSXB5kzQ4d6BeVBOlv/nFkYamAkIY=
+			l1khIFVD6eWsTmSxASm7S/Teo1aMMojBHlFLwhCZWyM=
 			</data>
 		</dict>
-		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
+		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sCEVy8cTVnERQOlFGqMnt4uavEn2wHXE3QGSrk8vs6c=
+			rELaDgnSeN+tiu2F5GVV9YSjar+Oj04g44pYltwl+UU=
 			</data>
 		</dict>
-		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
+		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			qxOeqpd5SutOe4usZJGaMxW9WBkJgPyVtMyqNkBVIzQ=
+			aKknCTdicStqmaICfqrj43caF4jk+7YYNnuFC0jLVmE=
 			</data>
 		</dict>
 	</dict>
