@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F3744F022DA4B285009D16F7 /* JinHaoSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEE3CB2D9295FE00D05C05 /* JinHaoSDK.xcframework */; };
+		F3744F032DA4B285009D16F7 /* JinHaoSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEE3CB2D9295FE00D05C05 /* JinHaoSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F37C4AC42D5B444800F1A2EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F37C4ABA2D5B444800F1A2EC /* Assets.xcassets */; };
 		F37C4AC62D5B444800F1A2EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F37C4ABD2D5B444800F1A2EC /* LaunchScreen.storyboard */; };
 		F37C4AC72D5B444800F1A2EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F37C4ABF2D5B444800F1A2EC /* Main.storyboard */; };
@@ -21,18 +23,16 @@
 		F37C4AE42D5B460900F1A2EC /* AKPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C4ADB2D5B460900F1A2EC /* AKPickerView.swift */; };
 		F37C4AE52D5B460900F1A2EC /* DevInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37C4ADF2D5B460900F1A2EC /* DevInfoTableViewCell.swift */; };
 		F37C4AE92D5C2D6100F1A2EC /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37C4AE82D5C2D6100F1A2EC /* SettingsViewController.xib */; };
-		F3EEE3CC2D9295FE00D05C05 /* JinHaoSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEE3CB2D9295FE00D05C05 /* JinHaoSDK.xcframework */; };
-		F3EEE3CD2D9295FE00D05C05 /* JinHaoSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEE3CB2D9295FE00D05C05 /* JinHaoSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F37C4ADA2D5B45DF00F1A2EC /* Embed Frameworks */ = {
+		F3744F042DA4B285009D16F7 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F3EEE3CD2D9295FE00D05C05 /* JinHaoSDK.xcframework in Embed Frameworks */,
+				F3744F032DA4B285009D16F7 /* JinHaoSDK.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3EEE3CC2D9295FE00D05C05 /* JinHaoSDK.xcframework in Frameworks */,
+				F3744F022DA4B285009D16F7 /* JinHaoSDK.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,7 +192,7 @@
 				F37C4A972D5B418600F1A2EC /* Sources */,
 				F37C4A982D5B418600F1A2EC /* Frameworks */,
 				F37C4A992D5B418600F1A2EC /* Resources */,
-				F37C4ADA2D5B45DF00F1A2EC /* Embed Frameworks */,
+				F3744F042DA4B285009D16F7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
