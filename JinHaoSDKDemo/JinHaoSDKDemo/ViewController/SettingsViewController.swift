@@ -68,7 +68,14 @@ class SettingsViewController: BaseViewController {
         sender.value = roundedValue
         self.showSpinnerView(in: self)
         self.accessory.request(request: .controlVolume(volume: Int(roundedValue), program: programSeg.selectedSegmentIndex),
-                               complete: { [weak self] _ in
+                               complete: { [weak self] result in
+            switch result {
+            case let .success(data: response):
+                print("success \(response)")
+            case let .error(error)
+                print("error \(error)")
+
+            }
             self?.hideSpinnerView()
         })
     }
