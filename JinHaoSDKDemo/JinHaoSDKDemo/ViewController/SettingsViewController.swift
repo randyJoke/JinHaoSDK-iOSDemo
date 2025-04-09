@@ -72,9 +72,12 @@ class SettingsViewController: BaseViewController {
             switch result {
             case let .success(data: response):
                 print("success \(response)")
-            case let .error(error)
+                
+            case let .error(error):
                 print("error \(error)")
-
+                
+            default:
+                break
             }
             self?.hideSpinnerView()
         })
@@ -288,32 +291,71 @@ extension SettingsViewController: AccessoryDelegate {
         //You can obtain the scene mode corresponding to each program, for example, the scene mode of program 0 is scenesOfProgram[0]
         device.request(request: .readScenesOfProgram, complete: { r in
             if case .success = r {
-                print("mode of programs is \(device.profile.programs)")
+                print("scene mode of programs is \(device.profile.programs)")
                 for (index, value) in device.profile.programs.enumerated() {
-                    print("program is: \(index), mode is: \(value)")
+                    print("program is: \(index), scene mode is: \(value)")
                 }
             } else {
                 //if error, this is default
-                print("mode of programs is \(device.profile.programs)")
+                print("scene mode of programs is \(device.profile.programs)")
                 for (index, value) in device.profile.programs.enumerated() {
-                    print("program is: \(index), mode is: \(value)")
+                    print("program is: \(index), scene mode is: \(value)")
                 }
             }
         })
         
+        
+        device.request(request: .readProfile(type: JinHaoProfileType.productSku), complete: {  r in
+            if case .success = r {
+                print("sku code is \(device.profile.skuCode)")
+            }
+        })
+        
+        device.request(request: .readProfile(type: JinHaoProfileType.productPattern), complete: { r in
+            if case .success = r {
+                print("pattern code is \(device.profile.patternCode)")
+            }
+        })
+        
+        device.request(request: .readProgramVolume, complete: { r in
+            if case .success = r {
+                if let program = device.program, let volume = device.volume {
+                    print("current program is \(program), scene is \(device.scenesOfProgram[program]), volume is \(volume)")
+                    device.request(request: .readDsp(program: program)) { r2 in
+                        self.hideSpinnerView()
+                    }
+                }
+            } else {
+                self.hideSpinnerView()
+            }
+        })
+        
+        /***
         device.request(
             requests: [
-                //read current program(runMode) and volume
-                .readProgramVolume,
-                //read dsp with program 0 ~ 3
-//                .readDsp(program: 0),    device.program is 0 ~ (device.numberOfProgram - 1)
-            ],
-            complete: { [weak self] in
-                self?.hideSpinnerView()
-                if let program = device.program {
-                    print("current program is \(program), mode is \(device.scenesOfProgram[program])")
+                .readProfile(type: JinHaoProfileType.productSku),
+                .readProfile(type: JinHaoProfileType.productPattern),
+                .readNumberOfPrograms(chip: device.hearChip),
+                .readScenesOfProgram,
+                .readProgramVolume
+            ],complete: { 
+                //sku code
+                print("sku code is \(device.profile.skuCode)")
+                //pattern code
+                print("pattern code is \(device.profile.patternCode)")
+                //number of program
+                print("number of programs is \(device.profile.programs)")
+                //scene mode
+                for (index, value) in device.profile.programs.enumerated() {
+                    print("program is: \(index), scene mode is: \(value)")
+                }
+                //scene mode
+                //program and volume
+                if let program = device.program, let volume = device.volume {
+                    print("current program is \(program), scene is \(device.scenesOfProgram[program]), volume is \(volume)")
                 }
             })
+         */
     }
 }
 
@@ -323,6 +365,8 @@ extension SettingsViewController: JinHaoAccessoryDelegate {
     func didNotifyProgram(_ accessory: JinHaoSDK.JinHaoAccessory, previous: Int, current: Int) {
         self.programSeg.selectedSegmentIndex = current
         accessory.request(request: .readDsp(program: current), complete: nil)
+        
+        
     }
     
     func didNotifyVolume(_ accessory: JinHaoSDK.JinHaoAccessory, previous: Int, current: Int) {

@@ -6,7 +6,7 @@ The `AccessoryManager` class is responsible for managing Bluetooth devices, incl
 
 ---
 
-## `AccessoryManager` Class
+## AccessoryManager Class
 
 ### Properties
 
@@ -40,13 +40,13 @@ The `AccessoryManager` class is responsible for managing Bluetooth devices, incl
 
 ## Delegate Protocols
 
-### `AccessoryManagerStatusDelegate`
+### AccessoryManagerStatusDelegate
 
 | Method Name                        | Parameters              | Return Type             | Description                                                                 |
 | ----------------------------------- | ----------------------- | ----------------------- | --------------------------------------------------------------------------- |
 | `accessoryManager(_:isAvailable:)`  | `manager`: `AccessoryManager?`, `isAvailable`: `Bool` | `Void` | This method is called when the availability of Bluetooth changes. It notifies the delegate when Bluetooth is powered on or off. |
 
-### `AccessoryManagerScanningDelegate`
+### AccessoryManagerScanningDelegate
 
 | Method Name                        | Parameters              | Return Type             | Description                                                                 |
 | ----------------------------------- | ----------------------- | ----------------------- | --------------------------------------------------------------------------- |

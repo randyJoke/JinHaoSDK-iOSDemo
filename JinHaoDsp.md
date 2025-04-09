@@ -21,7 +21,8 @@ The `JinHaoDsp` protocol defines the required properties and methods for DSP (Di
 | `eq5000`   | `Int`              | The equalizer setting for the 5000Hz frequency.                                                                                              |
 | `eq6000`   | `Int`              | The equalizer setting for the 6000Hz frequency.                                                                                              |
 | `eq7000`   | `Int`              | The equalizer setting for the 7000Hz frequency.                                                                                              |
-
+| `minEQValue`   | `Int`          | the minimum gain or attenuation setting for a specific frequency                                                                                      |
+| `maxEQValue`   | `Int`          | the maximum gain or attenuation setting for a specific frequency                                                                 |
 ## Initializer
 
 | Method        | Parameters        | Description                                                                 |
@@ -36,7 +37,7 @@ The `JinHaoDsp` protocol defines the required properties and methods for DSP (Di
 
 ## Enum Definitions
 
-### `JinHaoDirection`
+### JinHaoDirection
 Defines the audio signal direction. Possible values include:
 
 - `.normal`: Normal audio direction.
@@ -45,7 +46,7 @@ Defines the audio signal direction. Possible values include:
 - `.face`: Audio direction for face-to-face communication.
 - `.unknown`: Unknown audio direction.
 
-### `JinHaoNoise`
+### JinHaoNoise
 Defines the noise reduction level. Possible values include:
 
 - `.off`: No noise reduction.
@@ -53,7 +54,7 @@ Defines the noise reduction level. Possible values include:
 - `.medium`: Medium noise reduction.
 - `.strong`: Strong noise reduction.
 
-### `JinHaoMPO`
+### JinHaoMPO
 Defines the Maximum Power Output (MPO) level. Possible values include:
 
 - `.off`: MPO is off.

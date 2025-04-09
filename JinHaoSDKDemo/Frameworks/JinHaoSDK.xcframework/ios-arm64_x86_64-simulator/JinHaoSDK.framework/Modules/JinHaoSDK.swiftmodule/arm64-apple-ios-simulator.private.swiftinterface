@@ -198,6 +198,8 @@ public protocol JinHaoDsp : Swift.Equatable {
   var eq5000: Swift.Int { get set }
   var eq6000: Swift.Int { get set }
   var eq7000: Swift.Int { get set }
+  var minEQValue: Swift.Int { get }
+  var maxEQValue: Swift.Int { get }
   init(data: Foundation.Data)
   func toData() -> Foundation.Data
 }
@@ -528,9 +530,6 @@ public protocol AccessoryManagerScanningDelegate : ObjectiveC.NSObjectProtocol {
   public var accessories: [JinHaoSDK.Accessory] {
     get
   }
-  public var selectedAccessory: JinHaoSDK.Accessory? {
-    get
-  }
   public var isScanning: Swift.Bool {
     get
   }
@@ -541,7 +540,6 @@ public protocol AccessoryManagerScanningDelegate : ObjectiveC.NSObjectProtocol {
   weak public var scanningDelegate: (any JinHaoSDK.AccessoryManagerScanningDelegate)?
   public var accessorySelectorDelegate: any JinHaoSDK.AccessorySelectorDelegate
   @objc override dynamic public init()
-  public func setSelectedAccessory(_ deviceId: Swift.String)
   public func blueState() -> CoreBluetooth.CBManagerState
   public func openBluetooth()
   public func startScan()

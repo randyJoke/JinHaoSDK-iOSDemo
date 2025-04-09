@@ -6,13 +6,13 @@ The `JinHaoRequest` enum defines various types of requests that can be made to a
 
 | Request Name                | Parameters                                     | Description                                           |
 |-----------------------------|------------------------------------------------|-------------------------------------------------------|
-| `readProgramVolume`          | None                                           | Reads the current program volume.                    |
-| `readVolume(program:)`       | `program: Int (0-3)`                           | Reads the volume for a specific program (0-3).        |
-| `readDsp(program:)`          | `program: Int (0-3)`                           | Reads the DSP settings for a specific program (0-3).  |
-| `readNumberOfPrograms(chip:)`| `chip: JinHaoChip`                             | Reads the number of programs available for a chip.    |
-| `readScenesOfProgram`        | None                                           | Reads the scenes associated with the current program. |
+| `readProgramVolume`          | None                                           | Reads the current program and volume. we can get `accessory.volume, accessory.program` if request successfully           |
+| ~~`readVolume(program:)`~~       | ~~`program: Int (0-3)`~~                           | ~~Reads the volume for a specific program (0-3). we can get `accessory.program` if request successfully~~   |
+| `readDsp(program:)`          | `program: Int (0-3)`                           | Reads the DSP settings for a specific program (0-3). we can get `accessory.dsp` if request successfully |
+| `readNumberOfPrograms(chip:)`| `chip: JinHaoChip`                             | Reads the number of programs available for a chip. we can get `accessory.numberOfProgram` if request successfully  |
+| `readScenesOfProgram`        | None                                           | Reads the scenes for program. we can get `accessory.scenesOfProgram` if request successfully |
 | `readGlobalDsp(chip:)`       | `chip: JinHaoChip`                             | Reads the global DSP configuration for a chip.       |
-| `readProfile(type:)`         | `type: JinHaoProfileType`                      | Reads a specific profile based on the provided type.  |
+| `readProfile(type:)`         | `type: JinHaoProfileType`                      | Reads a specific profile based on the provided type.  we can get `accessory.profile` if request successfully, please refer to [JinHaoProfileType](Enum.md#jinhaoprofiletype-enum) and [JinHaoProfile](JinHaoProfile.md#jinhaoprofile-class) about more details|
 
 ## Write Requests
 

@@ -9761,6 +9761,90 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "minEQValue",
+            "printedName": "minEQValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9JinHaoSDK0aB3DspP10minEQValueSivp",
+            "mangledName": "$s9JinHaoSDK0aB3DspP10minEQValueSivp",
+            "moduleName": "JinHaoSDK",
+            "protocolReq": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9JinHaoSDK0aB3DspP10minEQValueSivg",
+                "mangledName": "$s9JinHaoSDK0aB3DspP10minEQValueSivg",
+                "moduleName": "JinHaoSDK",
+                "genericSig": "<τ_0_0 where τ_0_0 : JinHaoSDK.JinHaoDsp>",
+                "sugared_genericSig": "<Self where Self : JinHaoSDK.JinHaoDsp>",
+                "protocolReq": true,
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "maxEQValue",
+            "printedName": "maxEQValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9JinHaoSDK0aB3DspP10maxEQValueSivp",
+            "mangledName": "$s9JinHaoSDK0aB3DspP10maxEQValueSivp",
+            "moduleName": "JinHaoSDK",
+            "protocolReq": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9JinHaoSDK0aB3DspP10maxEQValueSivg",
+                "mangledName": "$s9JinHaoSDK0aB3DspP10maxEQValueSivg",
+                "moduleName": "JinHaoSDK",
+                "genericSig": "<τ_0_0 where τ_0_0 : JinHaoSDK.JinHaoDsp>",
+                "sugared_genericSig": "<Self where Self : JinHaoSDK.JinHaoDsp>",
+                "protocolReq": true,
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
             "kind": "Constructor",
             "name": "init",
             "printedName": "init(data:)",
@@ -20453,62 +20537,6 @@
           },
           {
             "kind": "Var",
-            "name": "selectedAccessory",
-            "printedName": "selectedAccessory",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "JinHaoSDK.Accessory?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Accessory",
-                    "printedName": "JinHaoSDK.Accessory",
-                    "usr": "c:@M@JinHaoSDK@objc(cs)Accessory"
-                  }
-                ],
-                "usr": "s:Sq"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:9JinHaoSDK16AccessoryManagerC08selectedD0AA0D0CSgvp",
-            "mangledName": "$s9JinHaoSDK16AccessoryManagerC08selectedD0AA0D0CSgvp",
-            "moduleName": "JinHaoSDK",
-            "declAttributes": [
-              "AccessControl"
-            ],
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "JinHaoSDK.Accessory?",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Accessory",
-                        "printedName": "JinHaoSDK.Accessory",
-                        "usr": "c:@M@JinHaoSDK@objc(cs)Accessory"
-                      }
-                    ],
-                    "usr": "s:Sq"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:9JinHaoSDK16AccessoryManagerC08selectedD0AA0D0CSgvg",
-                "mangledName": "$s9JinHaoSDK16AccessoryManagerC08selectedD0AA0D0CSgvg",
-                "moduleName": "JinHaoSDK",
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
             "name": "isScanning",
             "printedName": "isScanning",
             "children": [
@@ -20915,33 +20943,6 @@
           },
           {
             "kind": "Function",
-            "name": "setSelectedAccessory",
-            "printedName": "setSelectedAccessory(_:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:9JinHaoSDK16AccessoryManagerC011setSelectedD0yySSF",
-            "mangledName": "$s9JinHaoSDK16AccessoryManagerC011setSelectedD0yySSF",
-            "moduleName": "JinHaoSDK",
-            "declAttributes": [
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
             "name": "blueState",
             "printedName": "blueState()",
             "children": [
@@ -20957,7 +20958,8 @@
             "mangledName": "$s9JinHaoSDK16AccessoryManagerC9blueStateSo09CBManagerG0VyF",
             "moduleName": "JinHaoSDK",
             "declAttributes": [
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -30081,7 +30083,7 @@
     {
       "filePath": "\/Users\/joker\/Project\/锦好\/JHBLELibrary-iOS\/JinHaoSDK\/JinHaoSDK\/Shared\/Accessory\/AccessoryManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 1355,
+      "offset": 1259,
       "length": 1,
       "value": "0"
     },

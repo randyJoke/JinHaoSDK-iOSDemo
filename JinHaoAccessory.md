@@ -1,6 +1,6 @@
 # JinHaoAccessory Class
 
-The `JinHaoAccessory` class inherits from the `Accessory` class and handles various functionalities for interacting with JinHao Bluetooth accessories, including battery status, program settings, volume control, DSP configuration, and firmware updates.
+The `JinHaoAccessory` class inherits from the `Accessory` class and handles various functionalities for interacting with JinHao Bluetooth accessories, including battery status, program settings, volume control, and DSP configuratio.
 
 ## Protocols
 
@@ -9,10 +9,10 @@ Inherits from `AccessoryDelegate` and provides the following callbacks:
 
 | Callback Method                                                                 | Description                                                                  |
 | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `batteryDidChanged(_ accessory: JinHaoAccessory, bat: Int)`                       | Notifies when the battery level changes.                                     |
-| `didNotifyProgram(_ accessory: JinHaoAccessory, previous: Int, current: Int)`     | Notifies when the program changes.                                           |
-| `didNotifyVolume(_ accessory: JinHaoAccessory, previous: Int, current: Int)`      | Notifies when the volume changes.                                            |
-| `didUpdateValue(_ accessory: JinHaoAccessory, request: JinHaoRequest)`            | Notifies when a request update occurs.                                        |
+| `batteryDidChanged(_ accessory: JinHaoAccessory, bat: Int)`                       | Notifies when the battery level changes or call `readBattery()` method.                                     |
+| `didNotifyProgram(_ accessory: JinHaoAccessory, previous: Int, current: Int)`     | Notifies When we switch programs through the hearing aid's button
+| `didNotifyVolume(_ accessory: JinHaoAccessory, previous: Int, current: Int)`      | Notifies When we adjust volume through the hearing aid's button
+| `didUpdateValue(_ accessory: JinHaoAccessory, request: JinHaoRequest)`            | Notifies when a request `request(request: JinHaoRequest, complete: ((JinHaoResult) -> Void)?)` for [JinHaoAccessory](#jinhaoaccessory-class) update occurs.                                        |
 
 ## Public Properties
 
@@ -44,7 +44,7 @@ Inherits from `AccessoryDelegate` and provides the following callbacks:
 | ----------------------------------------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | `request(request: JinHaoRequest, complete: ((JinHaoResult) -> Void)?)` | `request: JinHaoRequest`<br> `complete: ((JinHaoResult) -> Void)?` | Sends a single request to the JinHao accessory and provides a callback for the result. |
 | `request(requests: [JinHaoRequest], complete: (() -> Void)?)` | `requests: [JinHaoRequest]`<br> `complete: (() -> Void)?`         | Sends multiple requests to the JinHao accessory and provides a callback when complete. |
-| `readBattery()`                                             | None                                                             | Requests the current battery level of the JinHao accessory.                 |
+| `readBattery()`                                             | None                                                             | Requests the current battery level of the JinHao accessory. and the             |
 
 ## Method Details
 
@@ -62,10 +62,10 @@ Inherits from `AccessoryDelegate` and provides the following callbacks:
   - `requests`: An array of `JinHaoRequest` objects to be sent to the accessory.
   - `complete`: A closure callback that is called once all requests have been processed.
 
-- **Description**: Sends multiple requests to the JinHao accessory. The provided callback is invoked when all requests are completed.
+- **Description**: Sends multiple requests to the JinHao accessory. The provided callback is invoked when all requests are completed.****
 
 ### `readBattery()`
 
 - **Parameters**: None
-- **Description**: Requests the current battery level of the JinHao accessory, triggering the `didUpdateBattery(_:)` method in the `JinHaoBatServiceDelegate`.
+- **Description**: Requests the current battery level of the JinHao accessory, triggering the `batteryDidChanged(_ accessory: JinHaoAccessory, bat: Int)` method in the `JinHaoAccessoryDelegate`.
 
