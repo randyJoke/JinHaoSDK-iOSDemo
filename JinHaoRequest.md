@@ -8,7 +8,7 @@ The `JinHaoRequest` enum defines various types of requests that can be made to a
 |-----------------------------|------------------------------------------------|-------------------------------------------------------|
 | `readProgramVolume`          | None                                           | Reads the current program and volume. we can get `accessory.volume, accessory.program` if request successfully           |
 | ~~`readVolume(program:)`~~       | ~~`program: Int (0-3)`~~                           | ~~Reads the volume for a specific program (0-3). we can get `accessory.program` if request successfully~~   |
-| `readDsp(program:)`          | `program: Int (0-3)`                           | Reads the DSP settings for a specific program (0-3). we can get `accessory.dsp` if request successfully |
+| `readDsp(program:)`          | `program: Int`                           | Reads the DSP settings for a specific program (the range is `0`~ `accessory.numberOfProgram - 1`). we can get `accessory.dsp` if request successfully |
 | `readNumberOfPrograms(chip:)`| `chip: JinHaoChip`                             | Reads the number of programs available for a chip. we can get `accessory.numberOfProgram` if request successfully  |
 | `readScenesOfProgram`        | None                                           | Reads the scenes for program. we can get `accessory.scenesOfProgram` if request successfully |
 | `readGlobalDsp(chip:)`       | `chip: JinHaoChip`                             | Reads the global DSP configuration for a chip.       |
@@ -18,8 +18,8 @@ The `JinHaoRequest` enum defines various types of requests that can be made to a
 
 | Request Name                | Parameters                                     | Description                                           |
 |-----------------------------|------------------------------------------------|-------------------------------------------------------|
-| `writeDsp(dsp:withResponse:)`| `dsp: any JinHaoDsp`, `program: Int (0-3)`, `withResponse: Bool` | Writes DSP settings for a program (0-3). If `withResponse` is `true`, the settings are saved to the hearing aid and persist even if the hearing aid loses power. If `withResponse` is `false`, the settings are not saved, and the changes will be lost after the hearing aid is powered off. |
-| `writeDspData(data:withResponse:)` | `data: Data`, `program: Int (0-3)`, `withResponse: Bool` | Writes DSP data for a specific program (0-3). If `withResponse` is `true`, the data is saved to the hearing aid and remains even after power loss. If `withResponse` is `false`, the data is not saved and will be lost after the device is powered off. |
+| `writeDsp(dsp:withResponse:)`| `dsp: any JinHaoDsp`, `program: Int`, `withResponse: Bool` | Writes DSP settings for a program (the range is `0`~ `accessory.numberOfProgram - 1`). If `withResponse` is `true`, the settings are saved to the hearing aid and persist even if the hearing aid loses power. If `withResponse` is `false`, the settings are not saved, and the changes will be lost after the hearing aid is powered off. |
+| `writeDspData(data:withResponse:)` | `data: Data`, `program: Int`, `withResponse: Bool` | Writes DSP data for a specific program (the range is `0`~ `accessory.numberOfProgram - 1`). If `withResponse` is `true`, the data is saved to the hearing aid and remains even after power loss. If `withResponse` is `false`, the data is not saved and will be lost after the device is powered off. |
 | `writeGlobalDsp(global:withResponse:)` | `global: JinHaoGlobalDsp`, `chip: JinHaoChip`, `withResponse: Bool` | Writes global DSP configuration for a chip. If `withResponse` is `true`, the configuration is saved to the hearing aid and is not lost upon power loss. If `withResponse` is `false`, the configuration is not saved, and it will be lost if the device is powered off. |
 | `writeGlobalDspData(data:withResponse:)` | `data: Data`, `chip: JinHaoChip`, `withResponse: Bool` | Writes global DSP data for a chip. If `withResponse` is `true`, the data is saved and persists after the device loses power. If `withResponse` is `false`, the data is not saved and will be lost upon power-off. |
 | `writeProfile(data:type:)`   | `data: Data`, `type: JinHaoProfileType`        | Writes a profile based on the provided data and type. |
@@ -29,8 +29,8 @@ The `JinHaoRequest` enum defines various types of requests that can be made to a
 
 | Request Name                | Parameters                                     | Description                                           |
 |-----------------------------|------------------------------------------------|-------------------------------------------------------|
-| `controlVolume(volume:program:)` | `volume: Int`, `program: Int (0-3)`          | adjust the volume for a specific program (0-3). The `volume` can be set in two ranges: <br>**Range 1:** `volume` from **0 to 10** representing a total of 10 volume levels. <br>**Range 2:** `volume` from **0 to 5**, representing a total of 6 volume levels.|
-| `controlProgram(program:)`   | `program: Int (0-3)`                           | switch the active program (0-3).                     |
+| `controlVolume(volume:program:)` | `volume: Int`, `program: Int`          | adjust the volume for a specific program (the range is `0`~ `accessory.numberOfProgram - 1`). The `volume` can be set in two ranges: <br>**Range 1:** `volume` from **0 to 10** representing a total of 10 volume levels. <br>**Range 2:** `volume` from **0 to 5**, representing a total of 6 volume levels.|
+| `controlProgram(program:)`   | `program: Int`                           | switch the active program (the range is `0`~ `accessory.numberOfProgram - 1`).                     |
 | `controlLockChip`            | None                                           | Locks the chip, preventing further changes.          |
 | `controlMute(mute:)`         | `mute: Bool`                                   | Mutes or unmutes the device.                          |
 | `controlBeep(value:)`        | `value: Int`                                   | Controls the beep sound of the accessory.             |
