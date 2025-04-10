@@ -4,20 +4,20 @@ This guide will walk you through the steps to integrate the SDK into your iOS ap
 ## Index
 - [Requirements](#requirements)
 - [Installation](#installation)
-	- [1. Add the `JinHaoSDK.xcframework` to Your Project](#1-add-the-jinhaosdkxcframework-to-your-project)
-	- [2. Configure Framework Search Paths](#2-configure-framework-search-paths)
-	- [3. Link the Framework](#3-link-the-framework)
-	- [4. Embed \& Sign the Framework](#4-embed--sign-the-framework)
+    - [1. Add the `JinHaoSDK.xcframework` to Your Project](#1-add-the-jinhaosdkxcframework-to-your-project)
+    - [2. Configure Framework Search Paths](#2-configure-framework-search-paths)
+    - [3. Link the Framework](#3-link-the-framework)
+    - [4. Embed \& Sign the Framework](#4-embed--sign-the-framework)
 - [Usage](#usage)
-	- [Initialization](#initialization)
-	- [Scan](#scan)
-	- [Connect](#connect)
-	- [Sending Commands to Hearing Aid](#sending-commands-to-hearing-aid)
-		- [Reading Hearing Aid Information](#reading-hearing-aid-information)
-		- [Adjust Volume](#adjust-volume)
-		- [Switching Programs](#switching-programs)
-		- [Change Dsp](#change-dsp)
-		- [Notify](#notify)
+    - [Initialization](#initialization)
+    - [Scan](#scan)
+    - [Connect](#connect)
+    - [Sending Commands to Hearing Aid](#sending-commands-to-hearing-aid)
+        - [Reading Hearing Aid Information](#reading-hearing-aid-information)
+        - [Adjust Volume](#adjust-volume)
+        - [Switching Programs](#switching-programs)
+        - [Change Dsp](#change-dsp)
+        - [Notify](#notify)
 - [API Document](#api-document)
 
 ## Requirements
@@ -63,15 +63,15 @@ deviceManager.statusDelegate = self
  [AccessoryManagerStatusDelegate](AccessoryManager.md#accessorymanagerstatusdelegate) will be called when the Bluetooth status changes
  ```
 func accessoryManager(_ manager: AccessoryManager?, isAvailable: Bool) {
-	if isAvailable {
-		// Bluetooth is available and enabled
-		print("Bluetooth is available.")
-		// Proceed with scanning or other Bluetooth-related tasks
-	} else {
-		// Bluetooth is not available or is turned off
-		print("Bluetooth is not available.")
-		// Handle the scenario where Bluetooth is unavailable
-	}
+    if isAvailable {
+        // Bluetooth is available and enabled
+        print("Bluetooth is available.")
+        // Proceed with scanning or other Bluetooth-related tasks
+    } else {
+        // Bluetooth is not available or is turned off
+        print("Bluetooth is not available.")
+        // Handle the scenario where Bluetooth is unavailable
+    }
 }
 ```
 ### Scan
@@ -113,60 +113,60 @@ func accessoryManager(_ manager: AccessoryManager?, didUpdate device: Accessory?
 - You can use the [JinHaoAccessory](JinHaoAccessory.md#jinhaoaccessory-class) object to call the connect(with: tag:) method to establish the connection.
 ```
 if accessory.state == AccessoryState.disconnected {
-	let _ = accessory.connect(with: self, tag: "")
-	//disconnect -- accessory.disconnect()
+    let _ = accessory.connect(with: self, tag: "")
+    //disconnect -- accessory.disconnect()
 }
 ```
 - [AccessoryDelegate](Accessory.md#accessorydelegate) will be called when the Accessory device's connection state changes or when an error occurs during connection attempts.
 ```
 // Handle connection state update
 func device(_ device: Accessory, didUpdate state: AccessoryState) {
-	switch state {
-	case .connected:
-		print("Hearing aid connected.")
-		// Update UI to reflect connection state
-		
-	case .disconnected:
-		print("Hearing aid disconnected.")
-		// Update UI or handle disconnection
-		
-	default:
-		break
-	}
+    switch state {
+    case .connected:
+        print("Hearing aid connected.")
+        // Update UI to reflect connection state
+        
+    case .disconnected:
+        print("Hearing aid disconnected.")
+        // Update UI or handle disconnection
+        
+    default:
+        break
+    }
 }
 
 // Handle services discovered on the device
 func device(_ device: Accessory, didDiscoverServices services: [AccessoryService]) {
-	print("Discovered services: \(services)")
-	//you can safely execute commands by calling the `request(request: JinHaoRequest, complete: ((JinHaoResult) -> Void)?)` method
+    print("Discovered services: \(services)")
+    //you can safely execute commands by calling the `request(request: JinHaoRequest, complete: ((JinHaoResult) -> Void)?)` method
 }
 
 // Handle successful connection
 func device(_ device: Accessory, didConnect error: Error?) {
-	if let error = error {
-		print("Failed to connect with error: \(error.localizedDescription)")
-	} else {
-		print("Successfully connected to the hearing aid.")
-		// Update UI to indicate successful connection
-	}
+    if let error = error {
+        print("Failed to connect with error: \(error.localizedDescription)")
+    } else {
+        print("Successfully connected to the hearing aid.")
+        // Update UI to indicate successful connection
+    }
 }
 
 // Handle disconnection
 func device(_ device: Accessory, didDisconnect error: Error?) {
-	if let error = error {
-		print("Error during disconnection: \(error.localizedDescription)")
-	} else {
-		print("Successfully disconnected from the hearing aid.")
-		// Handle post-disconnection actions
-	}
+    if let error = error {
+        print("Error during disconnection: \(error.localizedDescription)")
+    } else {
+        print("Successfully disconnected from the hearing aid.")
+        // Handle post-disconnection actions
+    }
 }
 
 // Handle failed connection
 func device(_ device: Accessory, didFailToConnect error: Error?) {
-	if let error = error {
-		print("Failed to connect to the hearing aid: \(error.localizedDescription)")
-		// Show error message to user
-	}
+    if let error = error {
+        print("Failed to connect to the hearing aid: \(error.localizedDescription)")
+        // Show error message to user
+    }
 }
 ```
 - you can also call `accessory.disconnect()` to disconnect from the hearing aid. 
@@ -195,94 +195,94 @@ accessory.readBattery()
 - **get number of program**
 ```
 device.request(request: .readNumberOfPrograms(chip: device.hearChip), complete: { r in
-	if case .success = r, let number = device.numberOfProgram {
-		//program
-		print("number of programs is \(number), so device.program is 0 ~ \(number - 1)")
-	}
+    if case .success = r, let number = device.numberOfProgram {
+        //program
+        print("number of programs is \(number), so device.program is 0 ~ \(number - 1)")
+    }
 })
 ```
 
 - **obtain the scene mode corresponding to each program, for example, the scene mode of program 0 is scenesOfProgram[0]**
 ```
 device.request(request: .readScenesOfProgram, complete: { r in
-	if case .success = r {
-		print("mode of programs is \(device.profile.programs)")
-		for (index, value) in device.profile.programs.enumerated() {
-			print("program is: \(index), mode is: \(value)")
-		}
-	} else {
-		//if error, this is default
-		print("mode of programs is \(device.profile.programs)")
-		for (index, value) in device.profile.programs.enumerated() {
-			print("program is: \(index), scene is: \(value)")
-		}
-	}
+    if case .success = r {
+        print("mode of programs is \(device.profile.programs)")
+        for (index, value) in device.profile.programs.enumerated() {
+            print("program is: \(index), mode is: \(value)")
+        }
+    } else {
+        //if error, this is default
+        print("mode of programs is \(device.profile.programs)")
+        for (index, value) in device.profile.programs.enumerated() {
+            print("program is: \(index), scene is: \(value)")
+        }
+    }
 })
 ```
 
 - **Read current programe、volume、dsp**
 ```
 device.request(request: .readProgramVolume, complete: { [weak self] in
-	if let program = device.program {
-		print("current program is \(program), scene is \(device.scenesOfProgram[program])")
-		//Read current dsp
-		device.request(request: .readDsp(program: 0), complete: { [weak self] in
-			if let dsp = device.dsp {
-				print("current program is \(program), dsp is \(dsp)")
-			}
-		})
-	}
+    if let program = device.program {
+        print("current program is \(program), scene is \(device.scenesOfProgram[program])")
+        //Read current dsp
+        device.request(request: .readDsp(program: 0), complete: { [weak self] in
+            if let dsp = device.dsp {
+                print("current program is \(program), dsp is \(dsp)")
+            }
+        })
+    }
 })
 ```
 
 - **Send a request to the hearing aid to fetch the SKU code.**
 ```
 device.request(request: .readProfile(type: JinHaoProfileType.productSku), complete: { [weak self] r in
-	if case .success = r {
-		print("sku code is \(device.profile.skuCode)")
-	}
+    if case .success = r {
+        print("sku code is \(device.profile.skuCode)")
+    }
 })
 ```
 
 We also can send multiple commands at once using `device.request(requests:, complete)` to gather information.
 ```
 device.request(
-	requests: [
-		.readProfile(type: JinHaoProfileType.productSku),
-		.readProfile(type: JinHaoProfileType.productPattern),
-		.readNumberOfPrograms(chip: device.hearChip),
-		.readScenesOfProgram,
-		.readProgramVolume
-	],complete: { _ in
-		//sku code
-		print("sku code is \(device.profile.skuCode)")
-		//pattern code
-		print("pattern code is \(device.profile.patternCode)")
-		//number of program
-		print("number of programs is \(device.profile.programs)")
-		//scene mode
-		for (index, value) in device.profile.programs.enumerated() {
-			print("program is: \(index), scene mode is: \(value)")
-		}
-		//scene mode
-		//program and volume
-		if let program = device.program, let volume = device.volume {
-			print("current program is \(program), scene is \(device.scenesOfProgram[program]), volume is \(volume)")
-		}
-	})
+    requests: [
+        .readProfile(type: JinHaoProfileType.productSku),
+        .readProfile(type: JinHaoProfileType.productPattern),
+        .readNumberOfPrograms(chip: device.hearChip),
+        .readScenesOfProgram,
+        .readProgramVolume
+    ],complete: { _ in
+        //sku code
+        print("sku code is \(device.profile.skuCode)")
+        //pattern code
+        print("pattern code is \(device.profile.patternCode)")
+        //number of program
+        print("number of programs is \(device.profile.programs)")
+        //scene mode
+        for (index, value) in device.profile.programs.enumerated() {
+            print("program is: \(index), scene mode is: \(value)")
+        }
+        //scene mode
+        //program and volume
+        if let program = device.program, let volume = device.volume {
+            print("current program is \(program), scene is \(device.scenesOfProgram[program]), volume is \(volume)")
+        }
+    })
 ```
 
 #### Adjust Volume 
 The volume adjustment range of the hearing aid is either 0–10 or 0–5, depending on the specific model of the hearing aid. You can refer to [JinHaoRequest.controlVolume](JinHaoRequest.md#write-requests).
 ```
 self.accessory.request(request: .controlVolume(volume: 1, program: 0), complete: { [weak self] result in
-	switch result {
-	case let .success(data: response):
-		print("success \(response)")
-	case let .error(error)
-		print("error \(error)")
+    switch result {
+    case let .success(data: response):
+        print("success \(response)")
+    case let .error(error)
+        print("error \(error)")
 
-	}
+    }
 })
 ```
 
@@ -290,11 +290,11 @@ self.accessory.request(request: .controlVolume(volume: 1, program: 0), complete:
 After switching programs, we need to re-fetch the DSP (Digital Signal Processing) data to ensure the hearing aid's data is updated in a timely manner.
 ```
 self.accessory.request(request: .controlProgram(program: sender.selectedSegmentIndex), complete: { [weak self] _ in
-	if let program = self?.program {
-		self?.accessory.request(request: .readDsp(program: program)) { [weak self] _ in
+    if let program = self?.program {
+        self?.accessory.request(request: .readDsp(program: program)) { [weak self] _ in
 
-		}
-	}
+        }
+    }
 })
 ```
 
@@ -303,45 +303,45 @@ The modification of the DSP mode file is primarily done by modifying the object 
 - **change mpo**
 ```
 if var dsp = self.accessory.dsp, let p = self.accessory.program {
-	switch sender.selectedSegmentIndex {
-	case 0:
-		dsp.mpo = .off
-	case 1:
-		dsp.mpo = .low
-	case 2:
-		dsp.mpo = .medium
-	case 3:
-		dsp.mpo = .high
-		
-	default: break
-	}
-	self.showSpinnerView(in: self)
-	self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
-							complete: { [weak self] _ in
-		self?.hideSpinnerView()
-	})
+    switch sender.selectedSegmentIndex {
+    case 0:
+        dsp.mpo = .off
+    case 1:
+        dsp.mpo = .low
+    case 2:
+        dsp.mpo = .medium
+    case 3:
+        dsp.mpo = .high
+        
+    default: break
+    }
+    self.showSpinnerView(in: self)
+    self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
+                            complete: { [weak self] _ in
+        self?.hideSpinnerView()
+    })
 }
 ```
 
 - **change noise**
 ```
 if var dsp = self.accessory.dsp, let p = self.accessory.program {
-	switch sender.selectedSegmentIndex {
-	case 0:
-		dsp.noise = .off
-	case 1:
-		dsp.noise = .weak
-	case 2:
-		dsp.noise = .medium
-	case 3:
-		dsp.noise = .strong
-	default: break
-	}
-	self.showSpinnerView(in: self)
-	self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
-							complete: { [weak self] _ in
-		self?.hideSpinnerView()
-	})
+    switch sender.selectedSegmentIndex {
+    case 0:
+        dsp.noise = .off
+    case 1:
+        dsp.noise = .weak
+    case 2:
+        dsp.noise = .medium
+    case 3:
+        dsp.noise = .strong
+    default: break
+    }
+    self.showSpinnerView(in: self)
+    self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
+                            complete: { [weak self] _ in
+        self?.hideSpinnerView()
+    })
 }
 ```
 
@@ -349,15 +349,15 @@ if var dsp = self.accessory.dsp, let p = self.accessory.program {
   
 ```
 if var dsp = self.accessory.dsp, let p = self.accessory.program {
-	let step: Float = 1
-	let roundedValue = round(sender.value / step) * step
-	sender.value = roundedValue
-	dsp.eq250 =  max(min(dsp.maxEQValue, Int(roundedValue)), Int(roundedValue))
-	self.showSpinnerView(in: self)
-	self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
-							complete: { [weak self] _ in
-		self?.hideSpinnerView()
-	})
+    let step: Float = 1
+    let roundedValue = round(sender.value / step) * step
+    sender.value = roundedValue
+    dsp.eq250 =  max(min(dsp.maxEQValue, Int(roundedValue)), Int(roundedValue))
+    self.showSpinnerView(in: self)
+    self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
+                            complete: { [weak self] _ in
+        self?.hideSpinnerView()
+    })
 }
 ```
 
@@ -366,53 +366,53 @@ When the battery level changes, the hearing aid's volume or program is switched 
 ```
 /// Notifies When we switch programs through the hearing aid's button
 func didNotifyProgram(_ accessory: JinHaoSDK.JinHaoAccessory, previous: Int, current: Int) {
-	self.programSeg.selectedSegmentIndex = current
+    self.programSeg.selectedSegmentIndex = current
 }
 
 /// Notifies When we adjust volume through the hearing aid's button
 func didNotifyVolume(_ accessory: JinHaoSDK.JinHaoAccessory, previous: Int, current: Int) {
-	self.volumeSlider.value = Float(current)
+    self.volumeSlider.value = Float(current)
 }
 
 /// - bat: 0~100
 func batteryDidChanged(_ accessory: JinHaoSDK.JinHaoAccessory, bat: Int) {
-	
+    
 }
 
 //'device.request(request: JinHaoRequest, complete: ((JinHaoResult)->Void)?)' will trigger this method
 func didUpdateValue(_ accessory: JinHaoSDK.JinHaoAccessory, request: JinHaoSDK.JinHaoRequest) {
-	if let v = accessory.volume {
-		self.volumeSlider.value = Float(v)
-	}
-	if let p = accessory.program{
-		self.programSeg.selectedSegmentIndex = p
-	}
-	if let dsp = accessory.dsp {
-		switch dsp.noise {
-		case .off: noiseSeg.selectedSegmentIndex = 0
-		case .weak: noiseSeg.selectedSegmentIndex = 1
-		case .medium: noiseSeg.selectedSegmentIndex = 2
-		case .strong: noiseSeg.selectedSegmentIndex = 3
-		default:
-			directionSeg.selectedSegmentIndex = UISegmentedControl.noSegment
-			break
-		}
-		
-		switch dsp.mpo {
-		case .off: mpoSeg.selectedSegmentIndex = 0
-		case .low: mpoSeg.selectedSegmentIndex = 1
-		case .medium: mpoSeg.selectedSegmentIndex = 2
-		case .high: mpoSeg.selectedSegmentIndex = 3
-		default:
-			directionSeg.selectedSegmentIndex = UISegmentedControl.noSegment
-			break
-		}
-		
-		eq250Slider.value = Float(dsp.eq250)
-		eq1000Slider.value = Float(dsp.eq1000)
-		eq2000Slider.value = Float(dsp.eq2000)
-		/// eq2500 ~ eq7000
-	}
+    if let v = accessory.volume {
+        self.volumeSlider.value = Float(v)
+    }
+    if let p = accessory.program{
+        self.programSeg.selectedSegmentIndex = p
+    }
+    if let dsp = accessory.dsp {
+        switch dsp.noise {
+        case .off: noiseSeg.selectedSegmentIndex = 0
+        case .weak: noiseSeg.selectedSegmentIndex = 1
+        case .medium: noiseSeg.selectedSegmentIndex = 2
+        case .strong: noiseSeg.selectedSegmentIndex = 3
+        default:
+            directionSeg.selectedSegmentIndex = UISegmentedControl.noSegment
+            break
+        }
+        
+        switch dsp.mpo {
+        case .off: mpoSeg.selectedSegmentIndex = 0
+        case .low: mpoSeg.selectedSegmentIndex = 1
+        case .medium: mpoSeg.selectedSegmentIndex = 2
+        case .high: mpoSeg.selectedSegmentIndex = 3
+        default:
+            directionSeg.selectedSegmentIndex = UISegmentedControl.noSegment
+            break
+        }
+        
+        eq250Slider.value = Float(dsp.eq250)
+        eq1000Slider.value = Float(dsp.eq1000)
+        eq2000Slider.value = Float(dsp.eq2000)
+        /// eq2500 ~ eq7000
+    }
 }
 
 ```
