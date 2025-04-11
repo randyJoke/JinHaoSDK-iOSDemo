@@ -4,21 +4,25 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		jMQrKBhMBXiXTM4Wiq0naN3U/aI=
+		</data>
 		<key>Info.plist</key>
 		<data>
 		kgZHTJHz+p8WPMUU5uvX0bHjzNs=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		I5+L8U/JQnDqHRWimnlrbrIP5Cc=
+		VDFMnPzOpVWGM+XV6kWWT5IZVSc=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		hCCERmQsNrpuPr2FCxDILrdN5WI=
+		v+oPEGPsF35VX4Bjw5mB+sWszC4=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		2lKTOsg7q2b4zZkNjemjZrey6xU=
+		4qiliZdPXg2j/IDhMIpTdq6/DTA=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -34,11 +38,11 @@
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		j0juPHo51Q7cVS+ahKlVtbnKL5k=
+		FOdSEkX4ZS0K0Vy9FduQKThbzmw=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		2lKTOsg7q2b4zZkNjemjZrey6xU=
+		4qiliZdPXg2j/IDhMIpTdq6/DTA=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -54,7 +58,7 @@
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		fOiy/Zt5t90hGIyP5w6s9XNQbfY=
+		CBbrKZmJG2zI2iqpFB1cSgY0OoM=
 		</data>
 		<key>resources.bundle/horn.json</key>
 		<data>
@@ -75,21 +79,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Tdl4Tm8gx8+8PDb3fdJ8a2mE+Og97rFGRv9XU18rPkk=
+			qdeA6QmNM2EcPvTSoQN7ZJEdQCCphOrPf3/nkVvjYK4=
 			</data>
 		</dict>
 		<key>Modules/JinHaoSDK.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			EJpQcqEgF+xWkI+V8my6YLU8IxUXZwWpByDnJHmZGq8=
+			ltOfKZLq69bNGkhshVFl4fhnntdw+Fw+CQZbKLKcPec=
 			</data>
 		</dict>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vpLtSnFi+NLAUrSdWuvT5E2rl3HsmXCGFub15bCiB3w=
+			8JUVDoE4YzdSPZKisVLj5V061q3cloPGVb9EN+DOehY=
 			</data>
 		</dict>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
@@ -117,14 +121,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1UM9SEFaaPqiOfqJWc9ZnQMk9MO9RtQgUjZ+XBCn/lA=
+			Hzjxb+o/zH7hHBwoW8ZajNtyO9NwrVnMoQQnZdqnwA0=
 			</data>
 		</dict>
 		<key>Modules/JinHaoSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vpLtSnFi+NLAUrSdWuvT5E2rl3HsmXCGFub15bCiB3w=
+			8JUVDoE4YzdSPZKisVLj5V061q3cloPGVb9EN+DOehY=
 			</data>
 		</dict>
 		<key>Modules/JinHaoSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
@@ -152,7 +156,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			MeySj2QeZ/76VbrnCkKb6J8pkbcWgjMMFKG6Te6lDg4=
+			e3JKxa/PQ3XErkd82hfhW8GK5cMdEpDirmOQR4FabbI=
 			</data>
 		</dict>
 		<key>resources.bundle/horn.json</key>

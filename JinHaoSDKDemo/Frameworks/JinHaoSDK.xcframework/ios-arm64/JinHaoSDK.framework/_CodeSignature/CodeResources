@@ -10,11 +10,11 @@
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		XXXqP35LYcaFaJ9N2SIVNMfJ7ik=
+		lUnfw8Wr7eMDEn7yPMGMUrSECEA=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		2lKTOsg7q2b4zZkNjemjZrey6xU=
+		4qiliZdPXg2j/IDhMIpTdq6/DTA=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		+WxcbVBxPCSsA0iWcMyLQWzVzBQ=
+		YbAUtKI64WP5JMiNjtVp5H9UOx8=
 		</data>
 		<key>resources.bundle/horn.json</key>
 		<data>
@@ -51,14 +51,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			m1P3alkLicAcg3cAlwNr6Fml9bCRCcNHes/WKT4qLhE=
+			yZCEWAC99wxfnFYxCE9MqkFkSwsZ8nkpiwlLzGOzDaQ=
 			</data>
 		</dict>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vpLtSnFi+NLAUrSdWuvT5E2rl3HsmXCGFub15bCiB3w=
+			8JUVDoE4YzdSPZKisVLj5V061q3cloPGVb9EN+DOehY=
 			</data>
 		</dict>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
@@ -86,7 +86,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			BXxkekBugFbcZDci0T9ult83LhfOezH4qSrqRkap5To=
+			hwpIawyzqAAhjM+U5WTG5Y2/2sfh0cq1MSxkDtgTcLs=
 			</data>
 		</dict>
 		<key>resources.bundle/horn.json</key>
