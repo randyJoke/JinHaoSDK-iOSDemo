@@ -22,7 +22,8 @@ The `JinHaoProfile` class represents the profile of a hearing aid device, contai
 | `seriesCode`          | `String`                   | A unique identifier for the hearing aid.                                                     |
 | `adName`              | `String`                   | The advertisement name shown when scanning Bluetooth devices.                                 |
 | `programs`            | `[JinHaoProgram]`          | An array of programs available for the hearing aid. These are derived from the `modeConfig` property. |
-
+| `minVolume`            | `Int`          | minVolume generally refers to the minimum volume level. |
+| `maxVolume`            | `Int`          | maxVolume typically refers to the maximum volume level. |
 ---
 
 ## Methods

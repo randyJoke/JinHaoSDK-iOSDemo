@@ -10,15 +10,15 @@
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		0NNYQ0x/Ynx4s8eg2ylmtPKaQHc=
+		XXXqP35LYcaFaJ9N2SIVNMfJ7ik=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		h39nVxyxvMXgT0ACTnVJsCdeAXQ=
+		2lKTOsg7q2b4zZkNjemjZrey6xU=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		Y/xT17idCfDm3x+rNG4MXTr0104=
+		OtZsIPDctIsg0eEUVY5zPjwrVw8=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
@@ -26,11 +26,23 @@
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		Y/xT17idCfDm3x+rNG4MXTr0104=
+		OtZsIPDctIsg0eEUVY5zPjwrVw8=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		Q5c1j8qwkcAfxkkhyAtvzRcUkPI=
+		+WxcbVBxPCSsA0iWcMyLQWzVzBQ=
+		</data>
+		<key>resources.bundle/horn.json</key>
+		<data>
+		+qey0QNwX4aIU3jksNpwKQUkdbQ=
+		</data>
+		<key>resources.bundle/pattern.json</key>
+		<data>
+		yHr78plO2BzO1uSljbcProivKW4=
+		</data>
+		<key>resources.bundle/sku.json</key>
+		<data>
+		4vrZhSbRu8YRlUNaioUOrFOXDlY=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -39,21 +51,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YrSAE/r8p0OuYO9U81IZdfXlYy05e4e0BK2/tesLgKY=
+			m1P3alkLicAcg3cAlwNr6Fml9bCRCcNHes/WKT4qLhE=
 			</data>
 		</dict>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zkzh+Y/k6YvgDkwvTppGv1nYxQrIvorjNj8rX/rATg4=
+			vpLtSnFi+NLAUrSdWuvT5E2rl3HsmXCGFub15bCiB3w=
 			</data>
 		</dict>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eGpdenaWp8eUaOR5/Sqpy1t3N+zJGDZQ9zUMOw9rv54=
+			Wy9FfRD16KNcHnMl7DV6sheEe14MzZqAXucgeZOxYNY=
 			</data>
 		</dict>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
@@ -67,14 +79,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			eGpdenaWp8eUaOR5/Sqpy1t3N+zJGDZQ9zUMOw9rv54=
+			Wy9FfRD16KNcHnMl7DV6sheEe14MzZqAXucgeZOxYNY=
 			</data>
 		</dict>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			qg6za9ITpmdzrDyPBEhyihv0r8fvaC8LnQ4mvI9FR6g=
+			BXxkekBugFbcZDci0T9ult83LhfOezH4qSrqRkap5To=
+			</data>
+		</dict>
+		<key>resources.bundle/horn.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WImUT4liw4roF1LHGn1EyK/oHFwZG/io/eEmC3udVHg=
+			</data>
+		</dict>
+		<key>resources.bundle/pattern.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			yHm9OZYzj2+nNlgBvXutxJj5ZIX1tRfd2wTP3VaePsQ=
+			</data>
+		</dict>
+		<key>resources.bundle/sku.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			bEsLwgthlcSCWKkAQI1c+OurCXdN5TOVKIJ755WzVsw=
 			</data>
 		</dict>
 	</dict>

@@ -261,24 +261,26 @@ extension SettingsViewController: AccessoryDelegate {
     
     func device(_ device: Accessory, didDiscoverServices: [AccessoryService]) {
         guard let device = device as? JinHaoAccessory else { return }
-        switch device.hearChip {
-        case .a4, .h01:
-            eq250Slider.minimumValue = 0
-            eq250Slider.maximumValue = 15
-            eq1000Slider.minimumValue = 0
-            eq1000Slider.maximumValue = 15
-            eq2000Slider.minimumValue = 0
-            eq2000Slider.maximumValue = 15
-            /// eq2500 ~ eq7000 ...
-            
-        default:
-            break
-        }
         self.showSpinnerView(in: self)
         print("name is \(device.name)")
         print("local name is \(device.localName ?? "nil")")
         print("orientation is \(device.orientation)")
         print("mac address is \(device.address)")
+        
+        device.request(request: .readProfile(type: JinHaoProfileType.productSku), complete: {  [weak self] r in
+            guard let `self` = self else { return }
+            if case .success = r {
+                self.volumeSlider.minimumValue = Float(device.profile.minVolume)
+                self.volumeSlider.maximumValue = Float(device.profile.maxVolume)
+                print("sku code is \(device.profile.skuCode), minVolume is \(device.profile.minVolume), maxVolume is \(device.profile.maxVolume)")
+            }
+        })
+        
+        device.request(request: .readProfile(type: JinHaoProfileType.productPattern), complete: { r in
+            if case .success = r {
+                print("pattern code is \(device.profile.patternCode)")
+            }
+        })
         
         //you can get number of program
         device.request(request: .readNumberOfPrograms(chip: device.hearChip), complete: { r in
@@ -303,26 +305,20 @@ extension SettingsViewController: AccessoryDelegate {
                 }
             }
         })
-        
-        
-        device.request(request: .readProfile(type: JinHaoProfileType.productSku), complete: {  r in
-            if case .success = r {
-                print("sku code is \(device.profile.skuCode)")
-            }
-        })
-        
-        device.request(request: .readProfile(type: JinHaoProfileType.productPattern), complete: { r in
-            if case .success = r {
-                print("pattern code is \(device.profile.patternCode)")
-            }
-        })
-        
+
         device.request(request: .readProgramVolume, complete: { r in
             if case .success = r {
                 if let program = device.program, let volume = device.volume {
                     print("current program is \(program), scene is \(device.scenesOfProgram[program]), volume is \(volume)")
-                    device.request(request: .readDsp(program: program)) { r2 in
+                    device.request(request: .readDsp(program: program)) { [weak self] r2 in
+                        guard let `self` = self, let dsp = device.dsp else { return }
                         self.hideSpinnerView()
+                        self.eq250Slider.minimumValue = Float(dsp.minEQValue)
+                        self.eq250Slider.maximumValue = Float(dsp.maxEQValue)
+                        self.eq1000Slider.minimumValue = Float(dsp.minEQValue)
+                        self.eq1000Slider.maximumValue = Float(dsp.maxEQValue)
+                        self.eq2000Slider.minimumValue = Float(dsp.minEQValue)
+                        self.eq2000Slider.maximumValue = Float(dsp.maxEQValue)
                     }
                 }
             } else {
@@ -338,7 +334,7 @@ extension SettingsViewController: AccessoryDelegate {
                 .readNumberOfPrograms(chip: device.hearChip),
                 .readScenesOfProgram,
                 .readProgramVolume
-            ],complete: { 
+            ],complete: {
                 //sku code
                 print("sku code is \(device.profile.skuCode)")
                 //pattern code
@@ -389,6 +385,13 @@ extension SettingsViewController: JinHaoAccessoryDelegate {
         }
         
         if let dsp = accessory.dsp {
+            self.eq250Slider.minimumValue = Float(dsp.minEQValue)
+            self.eq250Slider.maximumValue = Float(dsp.maxEQValue)
+            self.eq1000Slider.minimumValue = Float(dsp.minEQValue)
+            self.eq1000Slider.maximumValue = Float(dsp.maxEQValue)
+            self.eq2000Slider.minimumValue = Float(dsp.minEQValue)
+            self.eq2000Slider.maximumValue = Float(dsp.maxEQValue)
+            
             switch dsp.noise {
             case .off: noiseSeg.selectedSegmentIndex = 0
             case .weak: noiseSeg.selectedSegmentIndex = 1
@@ -427,3 +430,4 @@ extension SettingsViewController: JinHaoAccessoryDelegate {
     }
 
 }
+

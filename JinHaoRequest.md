@@ -29,7 +29,7 @@ The `JinHaoRequest` enum defines various types of requests that can be made to a
 
 | Request Name                | Parameters                                     | Description                                           |
 |-----------------------------|------------------------------------------------|-------------------------------------------------------|
-| `controlVolume(volume:program:)` | `volume: Int`, `program: Int`          | adjust the volume for a specific program (the range is `0`~ `accessory.numberOfProgram - 1`). The `volume` can be set in two ranges: <br>**Range 1:** `volume` from **0 to 10** representing a total of 10 volume levels. <br>**Range 2:** `volume` from **0 to 5**, representing a total of 6 volume levels.|
+| `controlVolume(volume:program:)` | `volume: Int`, `program: Int`          | adjust the volume for a specific program (the range is `0`~ `accessory.numberOfProgram - 1`). <br>The `volume` adjustment range typically spans from the minimum value ([accessory.profile.minVolume](JinHaoProfile.md#properties)) to the maximum value ([accessory.profile.maxVolume](JinHaoProfile.md#properties))|
 | `controlProgram(program:)`   | `program: Int`                           | switch the active program (the range is `0`~ `accessory.numberOfProgram - 1`).                     |
 | `controlLockChip`            | None                                           | Locks the chip, preventing further changes.          |
 | `controlMute(mute:)`         | `mute: Bool`                                   | Mutes or unmutes the device.                          |

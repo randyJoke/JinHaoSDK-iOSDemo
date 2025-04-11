@@ -4,6 +4,7 @@
 import CoreBluetooth
 import Foundation
 import Swift
+import UIKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
@@ -55,8 +56,14 @@ public struct JinHaoProfileReservedField : Swift.Codable {
 }
 public struct JinHaoProfile : Swift.Codable {
   public var pSeriesCode: Swift.String
-  public var skuCode: Swift.String
-  public var patternCode: Swift.String
+  public var skuCode: Swift.String {
+    get
+    set
+  }
+  public var patternCode: Swift.String {
+    get
+    set
+  }
   public var hwVersion: Swift.String
   public var swVersion: Swift.String
   public var bhwPattern: Swift.String
@@ -66,8 +73,17 @@ public struct JinHaoProfile : Swift.Codable {
   public var otaVersion: Swift.String
   public var seriesCode: Swift.String
   public var adName: Swift.String
-  public var reservedField: JinHaoSDK.JinHaoProfileReservedField?
+  public var reservedField: JinHaoSDK.JinHaoProfileReservedField? {
+    get
+    set
+  }
   public var programs: [JinHaoSDK.JinHaoProgram] {
+    get
+  }
+  public var minVolume: Swift.Int {
+    get
+  }
+  public var maxVolume: Swift.Int {
     get
   }
   public init()
@@ -325,6 +341,11 @@ public struct PL3InputSettings {
   public var remoteMixRatio: Swift.UInt8
   public var mpoAttack: Swift.UInt8
   public var mpoRelease: Swift.UInt8
+}
+@_hasMissingDesignatedInitializers public class JinHaoAccessoryRepository : Swift.Codable {
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
 }
 public enum PL3Error : Swift.Error {
   case timeout
