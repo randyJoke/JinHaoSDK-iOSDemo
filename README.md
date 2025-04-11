@@ -275,7 +275,19 @@ device.request(
 ```
 
 #### Adjust Volume 
-The volume adjustment range of the hearing aid is either 0–10 or 0–5, depending on the specific model of the hearing aid. You can refer to [JinHaoRequest.controlVolume](JinHaoRequest.md#write-requests).
+The volume adjustment range of the hearing aid is either 0–10 or 0–5, depending on the `profile` property of `JinHaoAccessory`. You can refer to [JinHaoRequest.controlVolume](JinHaoRequest.md#control-requests).
+- Before adjusting the volume, we must first call the `readProfile(type: JinHaoProfileType.productSku)` to determine the maximum and minimum volume values.
+```
+device.request(request: .readProfile(type: JinHaoProfileType.productSku), complete: {  [weak self] r in
+    guard let `self` = self else { return }
+    if case .success = r {
+        self.volumeSlider.minimumValue = Float(device.profile.minVolume)
+        self.volumeSlider.maximumValue = Float(device.profile.maxVolume)
+        print("sku code is \(device.profile.skuCode), minVolume is \(device.profile.minVolume), maxVolume is \(device.profile.maxVolume)")
+    }
+})
+```
+- Sets the device's volume level.
 ```
 self.accessory.request(request: .controlVolume(volume: 1, program: 0), complete: { [weak self] result in
     switch result {
