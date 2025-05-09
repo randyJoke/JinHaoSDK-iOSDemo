@@ -15,6 +15,7 @@ class SettingsViewController: BaseViewController {
     var accessoryManager: AccessoryManager
     var accessory: JinHaoAccessory
     
+    @IBOutlet weak var batterylabel: UILabel!
     @IBOutlet weak var stateLabel: UILabel!
     @IBOutlet weak var volumeSlider: UISlider! {
         didSet {
@@ -53,7 +54,7 @@ class SettingsViewController: BaseViewController {
             
         }
         
-        JinHaoLog.enable = false
+        JinHaoLog.enable = true
         print("sdk version is \(JinHaoLog.sdkVersion())")
         configureBaseController(withTitle: accessory.name)
     }
@@ -95,6 +96,8 @@ class SettingsViewController: BaseViewController {
                 self?.hideSpinnerView()
             }
         })
+        
+        self.accessory.readBattery()
     }
     
     @IBAction func changeNoise(_ sender: UISegmentedControl) {
@@ -120,7 +123,7 @@ class SettingsViewController: BaseViewController {
     }
     
     @IBAction func changeMPO(_ sender: UISegmentedControl) {
-        if var dsp = self.accessory.dsp, let p = self.accessory.program {
+        if var dsp = self.accessory.dsp as? JinHaoA4Dsp, let p = self.accessory.program {
             switch sender.selectedSegmentIndex {
             case 0:
                 dsp.mpo = .off
@@ -170,7 +173,7 @@ class SettingsViewController: BaseViewController {
             let step: Float = 1
             let roundedValue = round(sender.value / step) * step
             sender.value = roundedValue
-            dsp.eq250 = Int(roundedValue)
+            dsp.setEq(eq: Int(roundedValue), at: 250)
             self.showSpinnerView(in: self)
             self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
                                    complete: { [weak self] _ in
@@ -184,7 +187,7 @@ class SettingsViewController: BaseViewController {
             let step: Float = 1
             let roundedValue = round(sender.value / step) * step
             sender.value = roundedValue
-            dsp.eq1000 = Int(roundedValue)
+            dsp.setEq(eq: Int(roundedValue), at: 1000)
             self.showSpinnerView(in: self)
             self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
                                    complete: { [weak self] _ in
@@ -198,7 +201,7 @@ class SettingsViewController: BaseViewController {
             let step: Float = 1
             let roundedValue = round(sender.value / step) * step
             sender.value = roundedValue
-            dsp.eq2000 = Int(roundedValue)
+            dsp.setEq(eq: Int(roundedValue), at: 2000)
             self.showSpinnerView(in: self)
             self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
                                    complete: { [weak self] result in
@@ -214,30 +217,60 @@ class SettingsViewController: BaseViewController {
         }
     }
     
-    /**
-         func fitting() {
-             let params = [250:30, 500:30, 1000:30, 1500:50, 2000:50, 3000:35, 4000:35, 6000:45]
-             let fitting = Fitting.calculate(params: params)
-             if var dsp = self.accessory.dsp, let p = self.accessory.program {
-                 dsp.eq250 = fitting.eq1
-                 dsp.eq500 = fitting.eq2
-                 dsp.eq1000 = fitting.eq3
-                 dsp.eq1500 = fitting.eq4
-                 dsp.eq2000 = fitting.eq5
-                 dsp.eq2500 = fitting.eq6
-                 dsp.eq3000 = fitting.eq7
-                 dsp.eq3500 = fitting.eq8
-                 dsp.eq4000 = fitting.eq9
-                 dsp.eq6000 = fitting.eq11
-                 
-                 self.showSpinnerView(in: self)
-                 self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
-                                        complete: { [weak self] _ in
-                     self?.hideSpinnerView()
-                 })
-             }
-         }
-     */
+    private func changeMPO() {
+        if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
+            dsp.setMpoLevel(mpoLevel: 0, at: 250)
+            accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
+                
+            }
+        }
+    }
+    
+    private func changeAttackTime() {
+        if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
+            dsp.attackTimeLevel = 0
+            accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
+                
+            }
+        }
+    }
+    
+    private func changeReleaseTime() {
+        if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
+            dsp.releaseTimeLevel = 0
+            accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
+                
+            }
+        }
+    }
+    
+    private func changeCompressThreshold() {
+        if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
+            dsp.setCompressRatioLevel(compressRatioLevel: 0, at: 250)
+            accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
+                
+            }
+        }
+    }
+    
+    private func changeCompressRatio() {
+        if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
+            dsp.setCompressRatioLevel(compressRatioLevel: 0, at: 250)
+            accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
+                
+            }
+        }
+    }
+    
+    private func readDataLog() {
+        if let device = accessory as? JinHaoA16Accessory {
+            device.requestSummaryDataLog { dataLog in
+                if dataLog != nil {
+                    print("dataLog is \(dataLog!)")
+                }
+            }
+        }
+    }
 }
 
 
@@ -267,6 +300,13 @@ extension SettingsViewController: AccessoryDelegate {
         print("orientation is \(device.orientation)")
         print("mac address is \(device.address)")
         
+        if let d = device as? JinHaoA16Accessory {
+            print("device is A16 Accessory")
+            d.requestSummaryDataLog { dataLog in
+                
+            }
+        }
+        
         device.request(request: .readProfile(type: JinHaoProfileType.productSku), complete: {  [weak self] r in
             guard let `self` = self else { return }
             if case .success = r {
@@ -283,15 +323,15 @@ extension SettingsViewController: AccessoryDelegate {
         })
         
         //you can get number of program
-        device.request(request: .readNumberOfPrograms(chip: device.hearChip), complete: { r in
+        device.readNumberOfProgram(complete: { r in
             if case .success = r, let number = device.numberOfProgram {
                 //program
-                print("number of programs is \(number), so device.program is 0 ~ \(number - 1)")
+                print("number of programs is \(number), so device.program is 0 ~ \(number)")
             }
         })
         
         //You can obtain the scene mode corresponding to each program, for example, the scene mode of program 0 is scenesOfProgram[0]
-        device.request(request: .readScenesOfProgram, complete: { r in
+        device.readScenesOfProgram(complete: { r in
             if case .success = r {
                 print("scene mode of programs is \(device.profile.programs)")
                 for (index, value) in device.profile.programs.enumerated() {
@@ -361,8 +401,6 @@ extension SettingsViewController: JinHaoAccessoryDelegate {
     func didNotifyProgram(_ accessory: JinHaoSDK.JinHaoAccessory, previous: Int, current: Int) {
         self.programSeg.selectedSegmentIndex = current
         accessory.request(request: .readDsp(program: current), complete: nil)
-        
-        
     }
     
     func didNotifyVolume(_ accessory: JinHaoSDK.JinHaoAccessory, previous: Int, current: Int) {
@@ -371,7 +409,7 @@ extension SettingsViewController: JinHaoAccessoryDelegate {
     
     /// - bat: 0~100
     func batteryDidChanged(_ accessory: JinHaoSDK.JinHaoAccessory, bat: Int) {
-        
+        self.batterylabel.text = String(bat)
     }
     
     //'device.request(request: JinHaoRequest, complete: ((JinHaoResult)->Void)?)' will trigger this method
@@ -402,16 +440,6 @@ extension SettingsViewController: JinHaoAccessoryDelegate {
                 break
             }
             
-            switch dsp.mpo {
-            case .off: mpoSeg.selectedSegmentIndex = 0
-            case .low: mpoSeg.selectedSegmentIndex = 1
-            case .medium: mpoSeg.selectedSegmentIndex = 2
-            case .high: mpoSeg.selectedSegmentIndex = 3
-            default:
-                directionSeg.selectedSegmentIndex = UISegmentedControl.noSegment
-                break
-            }
-            
             switch dsp.direction {
             case .normal: directionSeg.selectedSegmentIndex = 0
             case .tv: directionSeg.selectedSegmentIndex = 1
@@ -422,10 +450,30 @@ extension SettingsViewController: JinHaoAccessoryDelegate {
                 break
             }
             
-            eq250Slider.value = Float(dsp.eq250)
-            eq1000Slider.value = Float(dsp.eq1000)
-            eq2000Slider.value = Float(dsp.eq2000)
+            eq250Slider.value = Float(dsp.getEq(at: 250) ?? 0)
+            eq1000Slider.value = Float(dsp.getEq(at: 1000) ?? 0)
+            eq2000Slider.value = Float(dsp.getEq(at: 2000) ?? 0)
             /// eq2500 ~ eq7000
+        }
+        
+        if let dsp = accessory.dsp as? JinHaoA4Dsp {
+            switch dsp.mpo {
+            case .off: mpoSeg.selectedSegmentIndex = 0
+            case .low: mpoSeg.selectedSegmentIndex = 1
+            case .medium: mpoSeg.selectedSegmentIndex = 2
+            case .high: mpoSeg.selectedSegmentIndex = 3
+            default:
+                directionSeg.selectedSegmentIndex = UISegmentedControl.noSegment
+                break
+            }
+        }
+        
+        if let dsp = accessory.dsp as? JinHaoA16Dsp {
+            print("A16 attack time level is \(dsp.attackTimeLevel), value is \(dsp.getAttackTimeValue(level: dsp.attackTimeLevel))")
+            print("A16 release time level is \(dsp.releaseTimeLevel), value is \(dsp.getReleaseTimeValue(level: dsp.releaseTimeLevel))")
+            print("A16 compress ratio level is \(dsp.getCompressRatioLevel(at: 250)) in 250 Hz, value is \(dsp.getCompressRatioValue(level: dsp.getCompressRatioLevel(at: 250) ?? 0))")
+            print("A16 compress threshold level is \(dsp.getCompressThresholdLevel(at: 250)) in 250 Hz, value is \(dsp.getCompressThresholdValue(level: dsp.getCompressThresholdLevel(at: 250) ?? 0))")
+            print("A16 mpo level is \(dsp.getMpoLevel(at: 250)) in 250 Hz, value is \(dsp.getMpoValue(level: dsp.getMpoLevel(at: 250) ?? 0))")
         }
     }
 

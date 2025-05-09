@@ -16,7 +16,17 @@ This guide will walk you through the steps to integrate the SDK into your iOS ap
         - [Reading Hearing Aid Information](#reading-hearing-aid-information)
         - [Adjust Volume](#adjust-volume)
         - [Switching Programs](#switching-programs)
-        - [Change Dsp](#change-dsp)
+        - [Frequence](#frequence)
+        - [EQ](#eq)
+        - [MPO](#mpo)
+        - [Noise](#noise)
+        - [Direction](#change-direction)
+        - [Compression Threshold](#compression-threshold)
+        - [Compression Ratio](#compression-ratio)
+        - [Attack Time](#attack-time)
+        - [Release Time](#release-time)
+        - [Data Log](#data-log)
+        - [Read Battery](#read-battery)
         - [Notify](#notify)
 - [API Document](#api-document)
 
@@ -186,35 +196,31 @@ func device(_ device: Accessory, didFailToConnect error: Error?) {
 Before adjusting the volume, switching the program, or executing any other commands, we must first retrieve the relevant information from the hearing aid.
 
 We can send a single command using `device.request(request: , complete:)` to retrieve information. For more details, Please refer to the related [commands](JinHaoRequest.md#read-requests) for reading data.
-- **read battery**
-```
-/// Requests the current battery level of the JinHao accessory, triggering the `batteryDidChanged(_ accessory: JinHaoAccessory, bat: Int)` method in the `JinHaoAccessoryDelegate`
-accessory.readBattery()
-```
 
 - **get number of program**
 ```
-device.request(request: .readNumberOfPrograms(chip: device.hearChip), complete: { r in
+//you can get number of program
+device.readNumberOfProgram(complete: { r in
     if case .success = r, let number = device.numberOfProgram {
         //program
-        print("number of programs is \(number), so device.program is 0 ~ \(number - 1)")
+        print("number of programs is \(number), so device.program is 0 ~ \(number)")
     }
 })
 ```
 
 - **obtain the scene mode corresponding to each program, for example, the scene mode of program 0 is scenesOfProgram[0]**
 ```
-device.request(request: .readScenesOfProgram, complete: { r in
+device.readScenesOfProgram(complete: { r in
     if case .success = r {
-        print("mode of programs is \(device.profile.programs)")
+        print("scene mode of programs is \(device.profile.programs)")
         for (index, value) in device.profile.programs.enumerated() {
-            print("program is: \(index), mode is: \(value)")
+            print("program is: \(index), scene mode is: \(value)")
         }
     } else {
         //if error, this is default
-        print("mode of programs is \(device.profile.programs)")
+        print("scene mode of programs is \(device.profile.programs)")
         for (index, value) in device.profile.programs.enumerated() {
-            print("program is: \(index), scene is: \(value)")
+            print("program is: \(index), scene mode is: \(value)")
         }
     }
 })
@@ -244,34 +250,6 @@ device.request(request: .readProfile(type: JinHaoProfileType.productSku), comple
         print("sku code is \(device.profile.skuCode), minVolume is \(device.profile.minVolume), maxVolume is \(device.profile.maxVolume)")
     }
 })
-```
-
-We also can send multiple commands at once using `device.request(requests:, complete)` to gather information.
-```
-device.request(
-    requests: [
-        .readProfile(type: JinHaoProfileType.productSku),
-        .readProfile(type: JinHaoProfileType.productPattern),
-        .readNumberOfPrograms(chip: device.hearChip),
-        .readScenesOfProgram,
-        .readProgramVolume
-    ],complete: { _ in
-        //sku code
-        print("sku code is \(device.profile.skuCode)")
-        //pattern code
-        print("pattern code is \(device.profile.patternCode)")
-        //number of program
-        print("number of programs is \(device.profile.programs)")
-        //scene mode
-        for (index, value) in device.profile.programs.enumerated() {
-            print("program is: \(index), scene mode is: \(value)")
-        }
-        //scene mode
-        //program and volume
-        if let program = device.program, let volume = device.volume {
-            print("current program is \(program), scene is \(device.scenesOfProgram[program]), volume is \(volume)")
-        }
-    })
 ```
 
 #### Adjust Volume 
@@ -312,11 +290,63 @@ self.accessory.request(request: .controlProgram(program: sender.selectedSegmentI
 })
 ```
 
-#### Change Dsp
-The modification of the DSP mode file is primarily done by modifying the object that conforms to the [JinHaoDsp](JinHaoDsp.md#jinhaodsp-protocol) protocol and then sending the `writeDsp(dsp:withResponse:)` of [JinHaoRequest](JinHaoRequest.md#write-requests) command to apply the changes. 
-- **change mpo**
+#### Frequence
+When modifying MPO, noise, direction, and so on, we should first obtain the frequency modification range supported by the hearing aid.
+```
+ device.request(request: .readDsp(program: program)) { [weak self] r2 in
+    guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
+    let frequences = device.dsp?.frequences
+    print("frequences is \(frequences)")
+}
+```
+- **JinHaoA4Dsp**
+    if dsp is JinHaoA4Dsp, frequences = [250, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 5000, 6000, 7000]
+- **JinHaoA16Dsp**
+    if dsp is JinHaoA16Dsp, frequences = [250, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500]
+
+#### EQ
+Before modifying the EQ, we must first obtain the JinHaoDsp for the current program.
+```
+ device.request(request: .readDsp(program: program)) { [weak self] r2 in
+    guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
+    let frequences = dsp.frequences
+    let eq =  dsp.getEq(at: frequences[0])
+}
+```
+then we can refer to the [JinHaoDsp](./JinHaoDsp.md) API to modify the EQ. for example:
 ```
 if var dsp = self.accessory.dsp, let p = self.accessory.program {
+    let step: Float = 1
+    let roundedValue = round(sender.value / step) * step
+    sender.value = roundedValue
+    dsp.setEq(eq: Int(roundedValue), at: 250)
+    self.showSpinnerView(in: self)
+    self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
+                            complete: { [weak self] _ in
+        self?.hideSpinnerView()
+    })
+}
+```
+
+#### MPO
+
+Before modifying the MPO, we must first obtain the JinHaoDsp for the current program; if it has already been obtained, there's no need to call it again.
+```
+device.request(request: .readDsp(program: program)) { [weak self] r2 in
+    guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
+    if let dsp = accessory.dsp as? JinHaoA4Dsp {
+        print("A4 mpo is \(dsp.mpo) in all frequence")
+    }
+    if let dsp = accessory.dsp as? JinHaoA16Dsp {
+        print("A16 mpo level is \(dsp.getMpoLevel(at: 250)) in 250 Hz, value is \(dsp.getMpoValue(level: dsp.getMpoLevel(at: 250) ?? 0))")
+    }
+}
+```
+There are two cases when modifying the MPO, because the JinHaoDsp may be either [JinHaoA4Dsp](./JinHaoA4Dsp.md) or [JinHaoA16Dsp](./JinHaoA16Dsp.md). Below, we will set the MPO based on each case.
+
+- **JinHaoA4Dsp**
+```
+if var dsp = self.accessory.dsp as? JinHaoA4Dsp, let p = self.accessory.program {
     switch sender.selectedSegmentIndex {
     case 0:
         dsp.mpo = .off
@@ -336,8 +366,25 @@ if var dsp = self.accessory.dsp, let p = self.accessory.program {
     })
 }
 ```
+- **JinHaoA16Dsp**
+```
+if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
+    dsp.setMpoLevel(mpoLevel: 0, at: 250)
+    accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
+        
+    }
+}
+```
 
-- **change noise**
+#### Noise
+Before modifying the Noise, we must first obtain the JinHaoDsp for the current program; if it has already been obtained, there's no need to call it again.
+```
+device.request(request: .readDsp(program: program)) { [weak self] r2 in
+    guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
+
+}
+```
+then we can refer to the [JinHaoDsp](./JinHaoDsp.md) API to modify the [Noise](./JinHaoDsp.md#noise). for example:
 ```
 if var dsp = self.accessory.dsp, let p = self.accessory.program {
     switch sender.selectedSegmentIndex {
@@ -349,6 +396,7 @@ if var dsp = self.accessory.dsp, let p = self.accessory.program {
         dsp.noise = .medium
     case 3:
         dsp.noise = .strong
+        
     default: break
     }
     self.showSpinnerView(in: self)
@@ -359,14 +407,29 @@ if var dsp = self.accessory.dsp, let p = self.accessory.program {
 }
 ```
 
-- **change eq**
-  
+#### Direction
+Before modifying the Direction, we must first obtain the JinHaoDsp for the current program; if it has already been obtained, there's no need to call it again.
+```
+device.request(request: .readDsp(program: program)) { [weak self] r2 in
+    guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
+
+}
+```
+then we can refer to the [JinHaoDsp](./JinHaoDsp.md) API to modify the [Direction](./JinHaoDsp.md#direction). for example:
 ```
 if var dsp = self.accessory.dsp, let p = self.accessory.program {
-    let step: Float = 1
-    let roundedValue = round(sender.value / step) * step
-    sender.value = roundedValue
-    dsp.eq250 =  max(min(dsp.maxEQValue, Int(roundedValue)), Int(roundedValue))
+    switch sender.selectedSegmentIndex {
+    case 0:
+        dsp.direction = .normal
+    case 1:
+        dsp.direction = .tv
+    case 2:
+        dsp.direction = .meeting
+    case 3:
+        dsp.direction = .face
+        
+    default: break
+    }
     self.showSpinnerView(in: self)
     self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
                             complete: { [weak self] _ in
@@ -375,6 +438,113 @@ if var dsp = self.accessory.dsp, let p = self.accessory.program {
 }
 ```
 
+#### Compression Threshold
+The compression threshold applies only to [JinHaoA16Dsp](./JinHaoA16Dsp.md). Before modifying the Compression Threshold, we must first obtain the JinHaoDsp for the current program; if it has already been obtained, there's no need to call it again. 
+```
+device.request(request: .readDsp(program: program)) { [weak self] r2 in
+    guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
+    if let dsp = accessory.dsp as? JinHaoA16Dsp {
+        print("A16 compress threshold level is \(dsp.getCompressThresholdLevel(at: 250)) in 250 Hz, value is \(dsp.getCompressThresholdValue(level: dsp.getCompressThresholdLevel(at: 250) ?? 0))")
+    }
+}
+```
+then we can refer to the [JinHaoA16Dsp](docs/JinHaoA16Dsp.md) API to modify the [compression threshold](docs/JinHaoA16Dsp.md#compression-threshold). for example:
+```
+private func changeA16CompressThreshold() {
+    if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
+        dsp.setCompressRatioLevel(compressRatioLevel: 0, at: 250)
+        accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
+            
+        }
+    }
+}
+```
+
+#### Compression Ratio
+The compression ratio applies only to [JinHaoA16Dsp](./JinHaoA16Dsp.md). Before modifying the compression ratio, we must first obtain the JinHaoDsp for the current program; if it has already been obtained, there's no need to call it again. 
+```
+device.request(request: .readDsp(program: program)) { [weak self] r2 in
+    guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
+    if let dsp = accessory.dsp as? JinHaoA16Dsp {
+        print("A16 compress ratio level is \(dsp.getCompressRatioLevel(at: 250)) in 250 Hz, value is \(dsp.getCompressRatioValue(level: dsp.getCompressRatioLevel(at: 250) ?? 0))")
+    }
+}
+```
+then we can refer to the [JinHaoA16Dsp](./JinHaoA16Dsp.md) API to modify the [compression ratio](./JinHaoA16Dsp.md#compression-ratio). for example:
+```
+private func changeA16CompressRatio() {
+    if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
+        dsp.setCompressRatioLevel(compressRatioLevel: 0, at: 250)
+        accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
+            
+        }
+    }
+}
+```
+
+#### Attack Time
+The attack time applies only to [JinHaoA16Dsp](./JinHaoA16Dsp.md). Before modifying the attack time, we must first obtain the JinHaoDsp for the current program; if it has already been obtained, there's no need to call it again. 
+```
+device.request(request: .readDsp(program: program)) { [weak self] r2 in
+    guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
+    if let dsp = accessory.dsp as? JinHaoA16Dsp {
+        print("A16 attack time level is \(dsp.attackTimeLevel), value is \(dsp.getAttackTimeValue(level: dsp.attackTimeLevel))")
+
+    }
+}
+```
+then we can refer to the [JinHaoA16Dsp](./JinHaoA16Dsp.md) API to modify the [attack time](.docs/JinHaoA16Dsp.md#attack-time). for example:
+```
+private func changeA16AttackTime() {
+    if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
+        dsp.attackTimeLevel = 0
+        accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
+            
+        }
+    }
+}
+```
+
+#### Release Time
+The release time applies only to [JinHaoA16Dsp](./JinHaoA16Dsp.md). Before modifying the release time, we must first obtain the JinHaoDsp for the current program; if it has already been obtained, there's no need to call it again. 
+```
+device.request(request: .readDsp(program: program)) { [weak self] r2 in
+    guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
+    if let dsp = accessory.dsp as? JinHaoA16Dsp {
+        print("A16 release time level is \(dsp.releaseTimeLevel), value is \(dsp.getReleaseTimeValue(level: dsp.releaseTimeLevel))")
+    }
+}
+```
+then we can refer to the [JinHaoA16Dsp](./JinHaoA16Dsp.md) API to modify the [release time](./JinHaoA16Dsp.md#release-time). for example:
+```
+private func changeA16ReleaseTime() {
+    if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
+        dsp.releaseTimeLevel = 0
+        accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
+            
+        }
+    }
+}
+```
+
+#### Data Log
+Reading the DataLog is only applicable to `JinHaoA16Accessory`. for example:
+```
+if let d = device as? JinHaoA16Accessory {
+    print("device is A16 Accessory")
+    d.requestSummaryDataLog { dataLog in
+        
+    }
+}
+```
+For more details, please refer to [JinHaoDataLog](./JinHaoDataLog.md).
+
+#### Read Battery
+
+ Requests the current battery level of the JinHao accessory, triggering the `batteryDidChanged(_ accessory: JinHaoAccessory, bat: Int)` method in the `JinHaoAccessoryDelegate`
+ ```
+accessory.readBattery()
+```
 #### Notify
 When the battery level changes, the hearing aid's volume or program is switched through the button, or a command is sent to the hearing aid via the request method, the relevant methods in the [JinHaoAccessoryDelegate](JinHaoAccessory.md#jinhaoaccessorydelegate) will be triggered.
 ```
@@ -439,6 +609,8 @@ func didUpdateValue(_ accessory: JinHaoSDK.JinHaoAccessory, request: JinHaoSDK.J
 - [JinHaoAccessory](JinHaoAccessory.md)
 - [JinHaoAccessoryDelegate](JinHaoAccessory.md#jinhaoaccessorydelegate)
 - [JinHaoDsp](JinHaoDsp.md)
+- [JinHaoA4Dsp](JinHaoA4Dsp.md)
+- [JinHaoA16Dsp](JinHaoA16Dsp.md)
 - [JinHaoGlobalDsp](JinHaoGlobalDsp.md)
 - [JinHaoProfile](JinHaoProfile.md)
 - [JinHaoRequest](JinHaoRequest.md)
