@@ -217,7 +217,7 @@ class SettingsViewController: BaseViewController {
         }
     }
     
-    private func changeMPO() {
+    private func changeA16MPO() {
         if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
             dsp.setMpoLevel(mpoLevel: 0, at: 250)
             accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
@@ -226,7 +226,7 @@ class SettingsViewController: BaseViewController {
         }
     }
     
-    private func changeAttackTime() {
+    private func changeA16AttackTime() {
         if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
             dsp.attackTimeLevel = 0
             accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
@@ -235,7 +235,7 @@ class SettingsViewController: BaseViewController {
         }
     }
     
-    private func changeReleaseTime() {
+    private func changeA16ReleaseTime() {
         if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
             dsp.releaseTimeLevel = 0
             accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
@@ -244,7 +244,7 @@ class SettingsViewController: BaseViewController {
         }
     }
     
-    private func changeCompressThreshold() {
+    private func changeA16CompressThreshold() {
         if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
             dsp.setCompressRatioLevel(compressRatioLevel: 0, at: 250)
             accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
@@ -253,21 +253,11 @@ class SettingsViewController: BaseViewController {
         }
     }
     
-    private func changeCompressRatio() {
+    private func changeA16CompressRatio() {
         if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
             dsp.setCompressRatioLevel(compressRatioLevel: 0, at: 250)
             accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
                 
-            }
-        }
-    }
-    
-    private func readDataLog() {
-        if let device = accessory as? JinHaoA16Accessory {
-            device.requestSummaryDataLog { dataLog in
-                if dataLog != nil {
-                    print("dataLog is \(dataLog!)")
-                }
             }
         }
     }
@@ -351,7 +341,7 @@ extension SettingsViewController: AccessoryDelegate {
                 if let program = device.program, let volume = device.volume {
                     print("current program is \(program), scene is \(device.scenesOfProgram[program]), volume is \(volume)")
                     device.request(request: .readDsp(program: program)) { [weak self] r2 in
-                        guard let `self` = self, let dsp = device.dsp else { return }
+                        guard let `self` = self, let dsp = device.dsp, case .success = r2 else { return }
                         self.hideSpinnerView()
                         self.eq250Slider.minimumValue = Float(dsp.minEQValue)
                         self.eq250Slider.maximumValue = Float(dsp.maxEQValue)
@@ -359,39 +349,16 @@ extension SettingsViewController: AccessoryDelegate {
                         self.eq1000Slider.maximumValue = Float(dsp.maxEQValue)
                         self.eq2000Slider.minimumValue = Float(dsp.minEQValue)
                         self.eq2000Slider.maximumValue = Float(dsp.maxEQValue)
+                        
+                        
+                        let frequences = device.dsp?.frequences
+                        print("frequences is \(frequences)")
                     }
                 }
             } else {
                 self.hideSpinnerView()
             }
         })
-        
-        /***
-        device.request(
-            requests: [
-                .readProfile(type: JinHaoProfileType.productSku),
-                .readProfile(type: JinHaoProfileType.productPattern),
-                .readNumberOfPrograms(chip: device.hearChip),
-                .readScenesOfProgram,
-                .readProgramVolume
-            ],complete: {
-                //sku code
-                print("sku code is \(device.profile.skuCode)")
-                //pattern code
-                print("pattern code is \(device.profile.patternCode)")
-                //number of program
-                print("number of programs is \(device.profile.programs)")
-                //scene mode
-                for (index, value) in device.profile.programs.enumerated() {
-                    print("program is: \(index), scene mode is: \(value)")
-                }
-                //scene mode
-                //program and volume
-                if let program = device.program, let volume = device.volume {
-                    print("current program is \(program), scene is \(device.scenesOfProgram[program]), volume is \(volume)")
-                }
-            })
-         */
     }
 }
 
@@ -466,6 +433,7 @@ extension SettingsViewController: JinHaoAccessoryDelegate {
                 directionSeg.selectedSegmentIndex = UISegmentedControl.noSegment
                 break
             }
+            print("A4 mpo is \(dsp.mpo) in all frequence")
         }
         
         if let dsp = accessory.dsp as? JinHaoA16Dsp {

@@ -26455,8 +26455,9 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
               },
               {
                 "kind": "TypeNominal",
@@ -26466,8 +26467,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:9JinHaoSDK0aB6A16DspV18getAttackTimeValue5levelySi_tF",
-            "mangledName": "$s9JinHaoSDK0aB6A16DspV18getAttackTimeValue5levelySi_tF",
+            "usr": "s:9JinHaoSDK0aB6A16DspV18getAttackTimeValue5levelS2i_tF",
+            "mangledName": "$s9JinHaoSDK0aB6A16DspV18getAttackTimeValue5levelS2i_tF",
             "moduleName": "JinHaoSDK",
             "declAttributes": [
               "AccessControl"
@@ -26481,8 +26482,9 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
               },
               {
                 "kind": "TypeNominal",
@@ -26492,8 +26494,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:9JinHaoSDK0aB6A16DspV19getReleaseTimeValue5levelySi_tF",
-            "mangledName": "$s9JinHaoSDK0aB6A16DspV19getReleaseTimeValue5levelySi_tF",
+            "usr": "s:9JinHaoSDK0aB6A16DspV19getReleaseTimeValue5levelS2i_tF",
+            "mangledName": "$s9JinHaoSDK0aB6A16DspV19getReleaseTimeValue5levelS2i_tF",
             "moduleName": "JinHaoSDK",
             "declAttributes": [
               "AccessControl"

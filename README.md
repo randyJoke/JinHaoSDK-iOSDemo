@@ -619,3 +619,4 @@ func didUpdateValue(_ accessory: JinHaoSDK.JinHaoAccessory, request: JinHaoSDK.J
 - [JinHaoProgram](Enum.md#jinhaoprogram-enum)
 - [JinHaoBLEChip](Enum.md#jinhaoblechip-enum)
 - [JinHaoProfileType](Enum.md#jinhaoprofiletype-enum)
+- [JinHaoDataLog](./JinHaoDataLog.md)

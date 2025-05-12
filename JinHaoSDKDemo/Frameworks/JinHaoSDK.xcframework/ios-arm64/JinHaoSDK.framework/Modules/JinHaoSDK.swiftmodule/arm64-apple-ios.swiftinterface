@@ -727,8 +727,8 @@ public struct JinHaoA16Dsp : JinHaoSDK.JinHaoDsp {
     get
     set
   }
-  public func getAttackTimeValue(level: Swift.Int)
-  public func getReleaseTimeValue(level: Swift.Int)
+  public func getAttackTimeValue(level: Swift.Int) -> Swift.Int
+  public func getReleaseTimeValue(level: Swift.Int) -> Swift.Int
 }
 extension JinHaoSDK.JinHaoA16Dsp : Swift.Equatable {
   public static func == (lhs: JinHaoSDK.JinHaoA16Dsp, rhs: JinHaoSDK.JinHaoA16Dsp) -> Swift.Bool
