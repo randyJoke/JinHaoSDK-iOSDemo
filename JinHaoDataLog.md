@@ -15,8 +15,8 @@
 
 | Field Name       | Type   | Description                                   | Value Range      |
 |------------------|--------|-----------------------------------------------|------------------|
-| totalRunTime     | UInt32 | Total run time of the program (in minutes),  The unit is in increments of 10 minutes, meaning a value of 1 represents 10 minutes, 2 represents 20 minutes, and so on.               | 0 ~ 0xFFFFFFFF   |
-| vcIndex          | UInt32 | cumlutive VC index  		                      | 0 ~ 0xFFFFFFFF * 10minutes   |
+| totalRunTime     | UInt32 | Total run time of the program (in minutes),  The unit is in increments of 10 minutes, meaning a value of 1 represents 10 minutes, 2 represents 20 minutes, and so on.               | 0 ~ 0xFFFFFFFF (* 10minutes)  |
+| vcIndex          | UInt32 | cumlutive VC index  		                      | 0 ~ 0xFFFFFFFF  |
 | lessThan50       | UInt32 | Num Occurrences @ <50 dB				              | 0 ~ 0xFFFFFFFF  (* 10minutes)   |
 | between50And60   | UInt32 | Num Occurrences 50db<X>60db					          | 0 ~ 0xFFFFFFFF (* 10minutes)   |
 | between60And70   | UInt32 | Num Occurrences 60db<X>70db                   | 0 ~ 0xFFFFFFFF  (* 10minutes)  |
@@ -27,7 +27,7 @@
 
 | Field Name            | Type                          | Description                                           | Value Range      |
 |-----------------------|-------------------------------|-------------------------------------------------------|------------------|
-| totalRunTime          | UInt32                        | Total run time since reset (in minutes),  The unit is in increments of 10 minutes, meaning a value of 1 represents 10 minutes, 2 represents 20 minutes, and so on.		                           | 0 ~ 0xFFFFFFFF   |
+| totalRunTime          | UInt32                        | Total run time since reset (in minutes),  The unit is in increments of 10 minutes, meaning a value of 1 represents 10 minutes, 2 represents 20 minutes, and so on.		                           | 0 ~ 0xFFFFFFFF (* 10minutes)  |
 | runTimeSincePowerUp   | UInt32                        | Run Time since power up				                           | 0 ~ 0xFFFFFFFF (* 10minutes)  |
 | numberOfBatteryChanges| UInt32                        | Number of battery changes                               | 0 ~ 0xFFFFFFFF   |
 | batteryChangeHours    | UInt32                        | Hours accumulated before battery changes              | 0 ~ 0xFFFFFFFF   |
