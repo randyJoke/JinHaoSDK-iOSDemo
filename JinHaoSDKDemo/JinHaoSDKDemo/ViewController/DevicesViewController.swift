@@ -56,6 +56,7 @@ class DevicesViewController: BaseViewController, UITableViewDataSource, UITableV
         tableView.alwaysBounceVertical = false
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.tableFooterView = UIView()
         return tableView
     }()
     

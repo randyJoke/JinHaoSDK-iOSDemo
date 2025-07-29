@@ -15,7 +15,10 @@ class RequestSpinnerViewController: UIViewController {
     // MARK: - Methods
     override func loadView() {
         view = UIView()
-        activityIndicatorView = UIActivityIndicatorView(style: .large)
+        if #available(iOS 13.0, *) {
+            activityIndicatorView = UIActivityIndicatorView(style: .large)
+        } else {
+        }
         
         view.addSubview(activityIndicatorView)
         activityIndicatorView.setDimensions(width: 64, height: 64)

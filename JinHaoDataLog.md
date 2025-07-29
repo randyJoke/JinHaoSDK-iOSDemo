@@ -15,20 +15,20 @@
 
 | Field Name       | Type   | Description                                   | Value Range      |
 |------------------|--------|-----------------------------------------------|------------------|
-| totalRunTime     | UInt32 | Total run time of the program (in minutes)               | 0 ~ 0xFFFFFFFF   |
-| vcIndex          | UInt32 | cumlutive VC index  		                      | 0 ~ 0xFFFFFFFF   |
-| lessThan50       | UInt32 | Num Occurrences @ <50 dB				              | 0 ~ 0xFFFFFFFF   |
-| between50And60   | UInt32 | Num Occurrences 50db<X>60db					          | 0 ~ 0xFFFFFFFF   |
-| between60And70   | UInt32 | Num Occurrences 60db<X>70db                   | 0 ~ 0xFFFFFFFF   |
-| between70And80   | UInt32 | Num Occurrences 70db<X>80db                   | 0 ~ 0xFFFFFFFF   |
-| greaterThan80    | UInt32 | Num Occurrences > 80db                        | 0 ~ 0xFFFFFFFF   |
+| totalRunTime     | UInt32 | Total run time of the program (in minutes),  The unit is in increments of 10 minutes, meaning a value of 1 represents 10 minutes, 2 represents 20 minutes, and so on.               | 0 ~ 0xFFFFFFFF   |
+| vcIndex          | UInt32 | cumlutive VC index  		                      | 0 ~ 0xFFFFFFFF * 10minutes   |
+| lessThan50       | UInt32 | Num Occurrences @ <50 dB				              | 0 ~ 0xFFFFFFFF  (* 10minutes)   |
+| between50And60   | UInt32 | Num Occurrences 50db<X>60db					          | 0 ~ 0xFFFFFFFF (* 10minutes)   |
+| between60And70   | UInt32 | Num Occurrences 60db<X>70db                   | 0 ~ 0xFFFFFFFF  (* 10minutes)  |
+| between70And80   | UInt32 | Num Occurrences 70db<X>80db                   | 0 ~ 0xFFFFFFFF  (* 10minutes) |
+| greaterThan80    | UInt32 | Num Occurrences > 80db                        | 0 ~ 0xFFFFFFFF  (* 10minutes) |
 
 ### JinHaoSummaryDataLog
 
 | Field Name            | Type                          | Description                                           | Value Range      |
 |-----------------------|-------------------------------|-------------------------------------------------------|------------------|
-| totalRunTime          | UInt32                        | Total run time since reset (in minutes)		                           | 0 ~ 0xFFFFFFFF   |
-| runTimeSincePowerUp   | UInt32                        | Run Time since power up				                           | 0 ~ 0xFFFFFFFF   |
+| totalRunTime          | UInt32                        | Total run time since reset (in minutes),  The unit is in increments of 10 minutes, meaning a value of 1 represents 10 minutes, 2 represents 20 minutes, and so on.		                           | 0 ~ 0xFFFFFFFF   |
+| runTimeSincePowerUp   | UInt32                        | Run Time since power up				                           | 0 ~ 0xFFFFFFFF (* 10minutes)  |
 | numberOfBatteryChanges| UInt32                        | Number of battery changes                               | 0 ~ 0xFFFFFFFF   |
 | batteryChangeHours    | UInt32                        | Hours accumulated before battery changes              | 0 ~ 0xFFFFFFFF   |
 | lowBatteryFlag        | UInt32                        | Whether a low battery was detected (0 or 1 expected)  | 0 ~ 0xFFFFFFFF   |
