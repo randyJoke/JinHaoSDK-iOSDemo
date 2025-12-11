@@ -207,3 +207,47 @@ A Swift struct that models all DSP parameters for the JinHao A16 device.
 
 ### Frequency Reference
 - `frequalizerArray`: Constant array of frequency values for each band: [250, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500] Hz
+
+
+## Methods
+
+### Set Matrix Gain
+Public mutating method that sets the matrix gain using a single integer value. Accepts an integer parameter representing the desired matrix gain in dB. The method internally calculates the corresponding mantissa and exponent components and stores them in the `matrixGainMantissa` and `matrixGainExponent` properties. The input value must be in the valid range of -47 to -1, representing matrix gain values from -1 dB to -47 dB. If an invalid value is provided, the method will throw a fatal error.
+
+### Get Matrix Gain
+Public method that calculates and returns the current matrix gain as a single integer value. Uses the stored `matrixGainMantissa` and `matrixGainExponent` properties to compute the actual gain value through an internal calculation formula. Returns an integer representing the current matrix gain in dB.
+
+### Matrix Gain Display Value
+Public computed property that returns the matrix gain as a human-readable string. Retrieves the current matrix gain value using the `getMatrixGain()` method, then attempts to find a corresponding `MatrixGain` enum case. If found, returns the enum's display name; otherwise returns "Unknown". This property provides a user-friendly representation of the matrix gain setting.
+
+## Frequency Band Operation Methods
+
+### Get Equalizer Gain
+Public method that retrieves the equalizer gain for a specific frequency band. Accepts a `FrequencyBand` enum parameter indicating which frequency to query. Checks if the frequency's raw value is within the bounds of the `equalizerArray`. Returns the equalizer gain value for the specified frequency band, or returns the default `.db0` if the index is out of bounds.
+
+### Set Equalizer Gain
+Public mutating method that sets the equalizer gain for a specific frequency band. Accepts two parameters: a `EqualizerGain` enum value and a `FrequencyBand` enum value. Checks if the frequency's raw value is within the bounds of the `equalizerArray`. If valid, updates the corresponding element in the `equalizerArray` with the new gain value.
+
+### Get Compression Ratio
+Public method that retrieves the compression ratio for a specific frequency band. Accepts a `FrequencyBand` enum parameter indicating which frequency to query. Checks if the frequency's raw value is within the bounds of the `compressionRatioArray`. Returns the compression ratio value for the specified frequency band, or returns the default `.ratio1_00` if the index is out of bounds.
+
+### Set Compression Ratio
+Public mutating method that sets the compression ratio for a specific frequency band. Accepts two parameters: a `CompressionRatio` enum value and a `FrequencyBand` enum value. Checks if the frequency's raw value is within the bounds of the `compressionRatioArray`. If valid, updates the corresponding element in the `compressionRatioArray` with the new ratio value.
+
+### Get Compression Constant
+Public method that retrieves the compression time constant for a specific frequency band. Accepts a `FrequencyBand` enum parameter indicating which frequency to query. Checks if the frequency's raw value is within the bounds of the `compressionConstantArray`. Returns the compression constant value for the specified frequency band, or returns the default `.constant0` if the index is out of bounds.
+
+### Set Compression Constant
+Public mutating method that sets the compression time constant for a specific frequency band. Accepts two parameters: a `CompressionConstant` enum value and a `FrequencyBand` enum value. Checks if the frequency's raw value is within the bounds of the `compressionConstantArray`. If valid, updates the corresponding element in the `compressionConstantArray` with the new constant value.
+
+### Get Compression Threshold
+Public method that retrieves the compression threshold for a specific frequency band. Accepts a `FrequencyBand` enum parameter indicating which frequency to query. Checks if the frequency's raw value is within the bounds of the `compressionThresholdArray`. Returns the compression threshold value for the specified frequency band, or returns the default `.db40` if the index is out of bounds.
+
+### Set Compression Threshold
+Public mutating method that sets the compression threshold for a specific frequency band. Accepts two parameters: a `CompressionThreshold` enum value and a `FrequencyBand` enum value. Checks if the frequency's raw value is within the bounds of the `compressionThresholdArray`. If valid, updates the corresponding element in the `compressionThresholdArray` with the new threshold value.
+
+### Get Maximum Power Output
+Public method that retrieves the maximum power output setting for a specific frequency band. Accepts a `FrequencyBand` enum parameter indicating which frequency to query. Checks if the frequency's raw value is within the bounds of the `maximumPowerOutputArray`. Returns the maximum power output value for the specified frequency band, or returns the default `.muo` if the index is out of bounds.
+
+### Set Maximum Power Output
+Public mutating method that sets the maximum power output for a specific frequency band. Accepts two parameters: a `MaximumPowerOutput` enum value and a `FrequencyBand` enum value. Checks if the frequency's raw value is within the bounds of the `maximumPowerOutputArray`. If valid, updates the corresponding element in the `maximumPowerOutputArray` with the new maximum power output value.
