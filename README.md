@@ -20,7 +20,8 @@ This guide will walk you through the steps to integrate the SDK into your iOS ap
         - [EQ](#eq)
         - [MPO](#mpo)
         - [Noise](#noise)
-        - [Direction](#change-direction)
+        - [InputMode](#inputmode)
+        - [FeedbackCanceler](#feedbackcanceler)
         - [Compression Threshold](#compression-threshold)
         - [Compression Ratio](#compression-ratio)
         - [Attack Time](#attack-time)
@@ -335,10 +336,10 @@ Before modifying the MPO, we must first obtain the JinHaoDsp for the current pro
 device.request(request: .readDsp(program: program)) { [weak self] r2 in
     guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
     if let dsp = accessory.dsp as? JinHaoA4Dsp {
-        print("A4 mpo is \(dsp.mpo) in all frequence")
+        print("A4 mpo is \(dsp.maximumPowerOutput) in all frequence")
     }
     if let dsp = accessory.dsp as? JinHaoA16Dsp {
-        print("A16 mpo level is \(dsp.getMpoLevel(at: 250)) in 250 Hz, value is \(dsp.getMpoValue(level: dsp.getMpoLevel(at: 250) ?? 0))")
+        print("A16 mpo level is \(dsp.getMaximumPowerOutput(for: .hz250).displayName) in 250 Hz")
     }
 }
 ```
@@ -347,29 +348,22 @@ There are two cases when modifying the MPO, because the JinHaoDsp may be either 
 - **JinHaoA4Dsp**
 ```
 if var dsp = self.accessory.dsp as? JinHaoA4Dsp, let p = self.accessory.program {
-    switch sender.selectedSegmentIndex {
-    case 0:
-        dsp.mpo = .off
-    case 1:
-        dsp.mpo = .low
-    case 2:
-        dsp.mpo = .medium
-    case 3:
-        dsp.mpo = .high
-        
-    default: break
+    switch dsp.maximumPowerOutput {
+        case .muo: mpoSeg.selectedSegmentIndex = 0
+        case .dbMinus4: mpoSeg.selectedSegmentIndex = 1
+        case .dbMinus8: mpoSeg.selectedSegmentIndex = 2
+        case .dbMinus12: mpoSeg.selectedSegmentIndex = 3
+        default:
+            directionSeg.selectedSegmentIndex = UISegmentedControl.noSegment
+            break
+        }
+        print("A4 mpo is \(dsp.maximumPowerOutput) in all frequence")
     }
-    self.showSpinnerView(in: self)
-    self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
-                            complete: { [weak self] _ in
-        self?.hideSpinnerView()
-    })
-}
 ```
 - **JinHaoA16Dsp**
 ```
 if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
-    dsp.setMpoLevel(mpoLevel: 0, at: 250)
+    dsp.setMaximumPowerOutput(.dbMinus10, for: .hz250)
     accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
         
     }
@@ -407,34 +401,55 @@ if var dsp = self.accessory.dsp, let p = self.accessory.program {
 }
 ```
 
-#### Direction
-Before modifying the Direction, we must first obtain the JinHaoDsp for the current program; if it has already been obtained, there's no need to call it again.
+#### InputMode
+Before modifying the inputMode, we must first obtain the JinHaoDsp for the current program; if it has already been obtained, there's no need to call it again.
 ```
 device.request(request: .readDsp(program: program)) { [weak self] r2 in
     guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
-
+    if let dsp = accessory.dsp as? JinHaoA16Dsp {
+        self.inputModeSlider.value = Float(dsp.inputMode.rawValue)
+    }
 }
 ```
-then we can refer to the [JinHaoDsp](./JinHaoDsp.md) API to modify the [Direction](./JinHaoDsp.md#direction). for example:
+then we can refer to the [JinHaoA16DspEnum](./JinHaoA16DspEnum.md) API to modify the [Input Mode](./JinHaoA16DspEnum.md#inputmode). for example:
 ```
-if var dsp = self.accessory.dsp, let p = self.accessory.program {
-    switch sender.selectedSegmentIndex {
-    case 0:
-        dsp.direction = .normal
-    case 1:
-        dsp.direction = .tv
-    case 2:
-        dsp.direction = .meeting
-    case 3:
-        dsp.direction = .face
-        
-    default: break
-    }
+let step: Float = 1
+let roundedValue = round(sender.value / step) * step
+sender.value = roundedValue
+if var dsp = accessory.dsp as? JinHaoA16Dsp,
+    let program = accessory.program,
+    let inputMode = JinHaoA16DspEnum.InputMode(rawValue: Int(sender.value)){
+    dsp.inputMode = inputMode
     self.showSpinnerView(in: self)
-    self.accessory.request(request: .writeDsp(dsp: dsp, program: p, withResponse: true),
-                            complete: { [weak self] _ in
-        self?.hideSpinnerView()
-    })
+    accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
+        self.hideSpinnerView()
+    }
+}
+```
+
+#### FeedbackCanceler
+Before modifying the FeedbackCanceler, we must first obtain the JinHaoDsp for the current program; if it has already been obtained, there's no need to call it again.
+```
+device.request(request: .readDsp(program: program)) { [weak self] r2 in
+    guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
+    if let dsp = accessory.dsp as? JinHaoA16Dsp {
+        self.fbcSlider.value = Float(dsp.feedbackCanceler.rawValue)
+    }
+}
+```
+then we can refer to the [JinHaoA16DspEnum](./JinHaoA16DspEnum.md) API to modify the [FeedbackCanceler](./JinHaoA16DspEnum.md#feedbackcanceler). for example:
+```
+let step: Float = 1
+let roundedValue = round(sender.value / step) * step
+sender.value = roundedValue
+if var dsp = accessory.dsp as? JinHaoA16Dsp,
+    let program = accessory.program,
+    let fbc = JinHaoA16DspEnum.FeedbackCanceler(rawValue: Int(sender.value)){
+    dsp.feedbackCanceler = fbc
+    self.showSpinnerView(in: self)
+    accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
+        self.hideSpinnerView()
+    }
 }
 ```
 
@@ -448,11 +463,11 @@ device.request(request: .readDsp(program: program)) { [weak self] r2 in
     }
 }
 ```
-then we can refer to the [JinHaoA16Dsp](docs/JinHaoA16Dsp.md) API to modify the [compression threshold](docs/JinHaoA16Dsp.md#compression-threshold). for example:
+then we can refer to the [JinHaoA16DspEnum](./JinHaoA16DspEnum.md) API to modify the [compression threshold](./JinHaoA16DspEnum.md#compressionthreshold). for example:
 ```
 private func changeA16CompressThreshold() {
     if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
-        dsp.setCompressRatioLevel(compressRatioLevel: 0, at: 250)
+        dsp.setCompressionThreshold(.db20, for: .hz250)
         accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
             
         }
@@ -470,11 +485,11 @@ device.request(request: .readDsp(program: program)) { [weak self] r2 in
     }
 }
 ```
-then we can refer to the [JinHaoA16Dsp](./JinHaoA16Dsp.md) API to modify the [compression ratio](./JinHaoA16Dsp.md#compression-ratio). for example:
+then we can refer to the [JinHaoA16DspEnum](./JinHaoA16DspEnum.md) API to modify the [compression ratio](./JinHaoA16DspEnum.md#compressionratio). for example:
 ```
 private func changeA16CompressRatio() {
     if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
-        dsp.setCompressRatioLevel(compressRatioLevel: 0, at: 250)
+        dsp.setCompressionRatio(.ratio1_00, for: .hz250)
         accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
             
         }
@@ -488,8 +503,7 @@ The attack time applies only to [JinHaoA16Dsp](./JinHaoA16Dsp.md). Before modify
 device.request(request: .readDsp(program: program)) { [weak self] r2 in
     guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
     if let dsp = accessory.dsp as? JinHaoA16Dsp {
-        print("A16 attack time level is \(dsp.attackTimeLevel), value is \(dsp.getAttackTimeValue(level: dsp.attackTimeLevel))")
-
+        print("A16 attack time is \(dsp.mpoAttackTime.displayName)")
     }
 }
 ```
@@ -497,7 +511,7 @@ then we can refer to the [JinHaoA16Dsp](./JinHaoA16Dsp.md) API to modify the [at
 ```
 private func changeA16AttackTime() {
     if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
-        dsp.attackTimeLevel = 0
+        dsp.mpoAttackTime = .ms10
         accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
             
         }
@@ -511,7 +525,7 @@ The release time applies only to [JinHaoA16Dsp](./JinHaoA16Dsp.md). Before modif
 device.request(request: .readDsp(program: program)) { [weak self] r2 in
     guard let `self` = self, let dsp = device.dsp, case .success = r2  else { return }
     if let dsp = accessory.dsp as? JinHaoA16Dsp {
-        print("A16 release time level is \(dsp.releaseTimeLevel), value is \(dsp.getReleaseTimeValue(level: dsp.releaseTimeLevel))")
+        print("A16 release time is \(dsp.mpoReleaseTime.displayName)")
     }
 }
 ```
@@ -519,7 +533,7 @@ then we can refer to the [JinHaoA16Dsp](./JinHaoA16Dsp.md) API to modify the [re
 ```
 private func changeA16ReleaseTime() {
     if var dsp = accessory.dsp as? JinHaoA16Dsp, let program = accessory.program {
-        dsp.releaseTimeLevel = 0
+        dsp.mpoReleaseTime = .ms40
         accessory.request(request: .writeDsp(dsp: dsp, program: program, withResponse: true)) { result in
             
         }

@@ -491,6 +491,24 @@
         "fda":"QUH",
         "horn": "a4"
     },
+    "SFRDW57D":{
+        "parent":"JH-DW5A",
+        "shape":1,
+        "minVolume":0,
+        "maxVolume":5,
+        "listenable":false,
+        "fda":"QUH",
+        "horn": "a4"
+    },
+    "SSRDW57D":{
+        "parent":"JH-DW5A",
+        "shape":1,
+        "minVolume":0,
+        "maxVolume":5,
+        "listenable":false,
+        "fda":"QUH",
+        "horn": "a4"
+    },
     "TFRDW553":{
         "parent":"JH-DW5A",
         "shape":1,

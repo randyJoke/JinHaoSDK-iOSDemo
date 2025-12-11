@@ -1,147 +1,209 @@
 # JinHaoA16Dsp Class Documentation
 
-## Class Overview
-The `JinHaoA16Dsp` struct extends `JinHaoDsp` and is used to manage DSP settings, including frequency, direction, noise, EQ, and other parameters for hearing aid devices.
+## Overview
+The `JinHaoA16Dsp` struct contains all DSP configuration parameters for JinHao A16 hearing aid devices. This document details all properties of the data model.
+
+## Property Categories
+
+### 1. Basic DSP Settings
+
+#### Input Mode
+**Property:** `inputMode`
+**Type:** `JinHaoA16DspEnum.InputMode`
+**Default:** `.ai1Mic1`
+**Description:** Defines the input source selection for the DSP. Options include various microphone combinations and audio input modes.
+
+#### Analog Pre-Amplifier Gains
+- **`analogPreGainP0`**: Analog gain for path P0 (default: `.db0`, 0 dB)
+- **`analogPreGainP1`**: Analog gain for path P1 (default: `.db0`, 0 dB)
+
+**Type:** `JinHaoA16DspEnum.AnalogPreGain`
+**Range:** 0 dB to 36 dB in 3 dB increments
+
+#### Digital Pre-Amplifier Gains
+- **`digitalPreGainP1`**: Digital gain for path P1 (default: `.db0`, 0 dB)
+- **`digitalPreGainP2`**: Digital gain for path P2 (default: `.db0`, 0 dB)
+
+**Type:** `JinHaoA16DspEnum.DigitalPreGain`
+**Range:** 0 dB, 6 dB, 12 dB, 18 dB
+
+#### Matrix Gain Components
+- **`matrixGainMantissa`**: Mantissa component of matrix gain calculation
+- **`matrixGainExponent`**: Exponent component of matrix gain calculation
+
+**Type:** `Int`
+**Usage:** These two properties work together to represent matrix gain values from 0 dB to -47 dB. Use the provided helper methods `setMatrixGain()` and `getMatrixGain()` for easier manipulation.
+
+#### Signal Processing Features
+- **`feedbackCanceler`**: Feedback cancellation algorithm setting (default: `.off`)
+- **`noiseReduction`**: Noise reduction level (default: `.off`)
+- **`lowLevelExpansion`**: Low-level expansion (soft sounds enhancement) switch (default: `.off`)
+- **`windNoiseReduction`**: Wind noise reduction switch (default: `.off`)
+
+### 2. Equalizer Settings
+
+#### Equalizer Array
+**Property:** `equalizerArray`
+**Type:** `[JinHaoA16DspEnum.EqualizerGain]`
+**Size:** 16 elements
+**Default:** All elements set to `.db0` (0 dB)
+**Description:** Contains gain values for each of the 16 frequency bands in the equalizer. Each element corresponds to a specific frequency band.
+
+**Reserved Fields:**
+- `em1`: Experimental/reserved field 1
+- `em2`: Experimental/reserved field 2
+
+### 3. Compression Settings
+
+#### Compression Ratio Array
+**Property:** `compressionRatioArray`
+**Type:** `[JinHaoA16DspEnum.CompressionRatio]`
+**Size:** 16 elements
+**Default:** All elements set to `.ratio1_00` (1.00:1 ratio)
+**Description:** Compression ratio settings for each frequency band.
+
+**Reserved Fields:**
+- `em3`: Experimental/reserved field 3
+- `em4`: Experimental/reserved field 4
+
+#### Compression Constant Array
+**Property:** `compressionConstantArray`
+**Type:** `[JinHaoA16DspEnum.CompressionConstant]`
+**Size:** 16 elements
+**Default:** All elements set to `.constant0`
+**Description:** Time constant settings for compression release times in each frequency band.
+
+#### Compression Threshold Array
+**Property:** `compressionThresholdArray`
+**Type:** `[JinHaoA16DspEnum.CompressionThreshold]`
+**Size:** 16 elements
+**Default:** All elements set to `.db40` (40 dB)
+**Description:** Threshold levels for compression activation in each frequency band.
+
+**Reserved Fields:**
+- `em5`: Experimental/reserved field 5
+- `em6`: Experimental/reserved field 6
+- `em7`: Experimental/reserved field 7
+
+### 4. Maximum Power Output (MPO) Settings
+
+#### MPO Array
+**Property:** `maximumPowerOutputArray`
+**Type:** `[JinHaoA16DspEnum.MaximumPowerOutput]`
+**Size:** 16 elements
+**Default:** All elements set to `.muo` (Max Undistorted Output)
+**Description:** Maximum output power limits for each frequency band.
+
+**Reserved Field:**
+- `em8`: Experimental/reserved field 8
+
+#### MPO Time Constants
+- **`mpoAttackTime`**: Attack time for MPO limiting (default: `.ms10`, 10 ms)
+- **`mpoReleaseTime`**: Release time for MPO limiting (default: `.ms40`, 40 ms)
+
+**Reserved Field:**
+- `em9`: Experimental/reserved field 9
+
+### 5. Additional Audio Processing
+
+#### Remote Mix Ratio
+**Property:** `remoteMixRatio`
+**Type:** `JinHaoA16DspEnum.RemoteMixRatio`
+**Default:** `.db0` (0 dB)
+**Description:** Controls the mix ratio for remote microphone input.
+
+#### Low Cut Input Filter
+**Property:** `lowCutInputFilter`
+**Type:** `JinHaoA16DspEnum.LowCutFilter`
+**Default:** `.off`
+**Description:** Configures the low-frequency cutoff filter for input signals.
+
+### 6. Frequency Reference
+
+#### Frequency Array
+**Property:** `frequalizerArray`
+**Type:** `[Int]` (constant)
+**Value:** `[250, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500]`
+**Description:** Contains the center frequencies (in Hz) for each of the 16 equalizer bands. This array is read-only and provides reference frequencies for the other parameter arrays.
+
+## Array Index Mapping
+
+All 16-element arrays use the following frequency band mapping:
+
+| Index | Frequency | Enum Value |
+|-------|-----------|------------|
+| 0 | 250 Hz | `.hz250` |
+| 1 | 500 Hz | `.hz500` |
+| 2 | 1000 Hz | `.hz1000` |
+| 3 | 1500 Hz | `.hz1500` |
+| 4 | 2000 Hz | `.hz2000` |
+| 5 | 2500 Hz | `.hz2500` |
+| 6 | 3000 Hz | `.hz3000` |
+| 7 | 3500 Hz | `.hz3500` |
+| 8 | 4000 Hz | `.hz4000` |
+| 9 | 4500 Hz | `.hz4500` |
+| 10 | 5000 Hz | `.hz5000` |
+| 11 | 5500 Hz | `.hz5500` |
+| 12 | 6000 Hz | `.hz6000` |
+| 13 | 6500 Hz | `.hz6500` |
+| 14 | 7000 Hz | `.hz7000` |
+| 15 | 7500 Hz | `.hz7500` |
+
+## Reserved Fields
+
+The `em0` through `em9` fields are reserved for experimental features or future expansion. These fields should not be modified unless specifically documented for a particular use case.
+
+## Default Values
+
+When a new `JinHaoA16Dsp` instance is created using the default initializer, all properties are set to their safe default values, which represent a neutral configuration suitable for most users.
+
+## Overview
+The `JinHaoA16Dsp` struct represents the complete DSP configuration for JinHao A16 devices. It provides functionality to serialize and deserialize DSP parameters from byte arrays, as well as convenient access methods for all DSP settings.
+
+## Struct Definition
+
+### `JinHaoA16Dsp`
+A Swift struct that models all DSP parameters for the JinHao A16 device.
 
 ## Properties
 
-| Property Name     | Type           | Description                                                                                  |
-|-------------------|----------------|----------------------------------------------------------------------------------------------|
-| `frequences`      | `[Int]`        | An array of frequencies.                                                                      |
-| `direction`       | `JinHaoDirection` | The current direction mode of the device (e.g., normal, TV, meeting, face).                  |
-| `noise`           | `JinHaoNoise`  | The noise reduction level (e.g., off, weak, medium, strong).                                  |
-| `minEQValue`      | `Int`          | The minimum EQ value. Always `0`.                                                             |
-| `maxEQValue`      | `Int`          | The maximum EQ value. Always `20`.                                                            |
+### Basic DSP Settings
+- `inputMode`: Input mode selection (default: `.ai1Mic1`)
+- `analogPreGainP0`: Analog pre-amplifier gain for path P0 (default: `.db0`)
+- `analogPreGainP1`: Analog pre-amplifier gain for path P1 (default: `.db0`)
+- `digitalPreGainP1`: Digital pre-amplifier gain for path P1 (default: `.db0`)
+- `digitalPreGainP2`: Digital pre-amplifier gain for path P2 (default: `.db0`)
+- `matrixGainMantissa`: Mantissa part of matrix gain calculation
+- `matrixGainExponent`: Exponent part of matrix gain calculation
+- `feedbackCanceler`: Feedback cancellation setting (default: `.off`)
+- `noiseReduction`: Noise reduction level (default: `.off`)
+- `lowLevelExpansion`: Low-level expansion switch (default: `.off`)
+- `windNoiseReduction`: Wind noise reduction switch (default: `.off`)
+- `em0`: Reserved/experimental field 0
 
-## Methods
+### Equalizer Settings
+- `equalizerArray`: Array of 16 equalizer gain values (one for each frequency band)
+- `em1`: Reserved/experimental field 1
+- `em2`: Reserved/experimental field 2
 
-| Method Name                     | Return Type     | Description                                                                                   | Parameter Range                                                                                                  |
-|----------------------------------|-----------------|-----------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| `init(data: Data)`               | `JinHaoA16Dsp`  | Initializes the `JinHaoA16Dsp` instance with the provided data, creating a `DspContent` object. | `data`: A `Data` object containing the DSP content.                                                             |
-| `toData()`                       | `Data`          | Converts the current DSP object back into a `Data` object.                                    | N/A                                                                                                              |
-| `setEq(eq: Int, at frequence: Int)` | `Void`         | Sets the EQ value for the specified frequency.                                                 | `eq`: A value between `0` and `20`, representing the EQ setting.<br>`frequence`: A frequency value.             |
-| `getEq(at frequence: Int)`       | `Int?`          | Gets the EQ value for the specified frequency. Returns `nil` if the frequency is not found.     | `frequence`: A frequency value.                                                                                  |
-| `setCompressRatioLevel(compressRatioLevel: Int, at frequence: Int)` | `Void` | Sets the compression ratio level for the specified frequency.                                  | `compressRatioLevel`: A value between `0` and `35`.<br>`frequence`: A frequency value.                         |
-| `getCompressRatioLevel(at frequence: Int)` | `Int?` | Gets the compression ratio level for the specified frequency. Returns `nil` if the frequency is not found. | `frequence`: A frequency value.                                                                                  |
-| `getCompressRatioValue(level: Int)` | `Float?`      | Converts the compression ratio level to its corresponding value.                               | `level`: A value between `0` and `35`.                                                                            |
-| `setCompressThresholdLevel(compressThresholdLevel: Int, at frequence: Int)` | `Void` | Sets the compression threshold level for the specified frequency.                              | `compressThresholdLevel`: A value between `0` and `20`.<br>`frequence`: A frequency value.                     |
-| `getCompressThresholdLevel(at frequence: Int)` | `Int?` | Gets the compression threshold level for the specified frequency. Returns `nil` if the frequency is not found. | `frequence`: A frequency value.                                                                                  |
-| `getCompressThresholdValue(level: Int)` | `Int?`      | Converts the compression threshold level to its corresponding value.                           | `level`: A value between `0` and `20`.                                                                            |
-| `setMpoLevel(mpoLevel: Int, at frequence: Int)` | `Void` | Sets the MPO level for the specified frequency.                                                | `mpoLevel`: A value between `0` and `11`.<br>`frequence`: A frequency value.                                    |
-| `getMpoLevel(at frequence: Int)` | `Int?`          | Gets the MPO level for the specified frequency. Returns `nil` if the frequency is not found.   | `frequence`: A frequency value.                                                                                  |
-| `getMpoValue(level: Int)`       | `Int?`          | Converts the MPO level to its corresponding value.                                             | `level`: A value between `0` and `11`.                                                                            |
-| `attackTimeLevel`               | `Int`           | Gets or sets the attack time level for the device.                                            | `attackTimeLevel`: A value between `0` and `10`.                                                                 |
-| `releaseTimeLevel`              | `Int`           | Gets or sets the release time level for the device.                                           | `releaseTimeLevel`: A value between `0` and `10`.                                                                |
-| `getAttackTimeValue(level: Int)` | `Void`         | (Empty method for future implementation).                                                     | `level`: A value between `0` and `10`.                                                                           |
-| `getReleaseTimeValue(level: Int)` | `Void`        | (Empty method for future implementation).                                                     | `level`: A value between `0` and `10`.                                                                           |
+### Compression Settings
+- `compressionRatioArray`: Array of 16 compression ratio values
+- `em3`: Reserved/experimental field 3
+- `em4`: Reserved/experimental field 4
+- `compressionConstantArray`: Array of 16 compression time constant values
+- `compressionThresholdArray`: Array of 16 compression threshold values
+- `em5`: Reserved/experimental field 5
+- `em6`: Reserved/experimental field 6
+- `em7`: Reserved/experimental field 7
 
----
+### Maximum Power Output Settings
+- `maximumPowerOutputArray`: Array of 16 maximum power output values
+- `em8`: Reserved/experimental field 8
+- `mpoAttackTime`: MPO attack time constant (default: `.ms10`)
+- `mpoReleaseTime`: MPO release time constant (default: `.ms40`)
+- `em9`: Reserved/experimental field 9
+- `remoteMixRatio`: Remote microphone mix ratio (default: `.db0`)
+- `lowCutInputFilter`: Low-cut input filter setting (default: `.off`)
 
-## MPO
-| Level                         | Value         | Description
-|-------------------------------|----------------|-------------------------------------------------|
-| 0                         | 0             |  off |
-| 1                         | -1            |  MUO |
-| 2                         | -2             | None|
-| 3                         | -4              | None| 
-| 4                         | -6              | None| 
-| 5                         | -8              | None| 
-| 6                         | -10             | None| 
-| 7                         | -12             | None| 
-| 8                         | -14             | None| 
-| 9                         | -16             | None| 
-| 10                         | -18            | None| 
-| 11                         | -20            | None| 
-
-
-## Compression Threshold
-| Level                         | Value         | Description
-|-------------------------------|----------------|-------------------------------------------------|
-| 0                         | 20             |  None |
-| 1                         | 22            |  None |
-| 2                         | 24             | None|
-| 3                         | 26              | None| 
-| 4                         | 28              | None| 
-| 5                         | 30              | None| 
-| 6                         | 32             | None| 
-| 7                         | 34             | None| 
-| 8                         | 36             | None| 
-| 9                         | 38             | None| 
-| 10                         | 40            | None| 
-| 11                         | 42            | None| 
-| 12                         |44            | None|
-| 13                         | 46              | None| 
-| 14                         | 48             | None| 
-| 15                         | 50              | None| 
-| 16                         | 52             | None| 
-| 17                         | 54             | None| 
-| 18                         | 56             | None| 
-| 19                         | 58             | None| 
-| 20                         | 60            | None| 
-| 21                         | 62            |  None |
-| 22                         | 64             | None|
-| 23                         | 66              | None| 
-| 24                         | 68              | None| 
-| 25                         | 70              | None| 
-| 26                         | 72             | None| 
-| 27                         | 74             | None| 
-| 28                         | 76             | None| 
-| 29                         | 78             | None| 
-| 30                         | 80            | None| 
-| 31                         | 82            | None| 
-
-## Compression Ratio
-| Level                         | Value         | Description
-|-------------------------------|----------------|-------------------------------------------------|
-| 0                         | 1             |  None |
-| 1                         | 1.03            |  None |
-| 2                         | 1.05             | None|
-| 3                         | 1.08             | None| 
-| 4                         | 1.11              | None| 
-| 5                         | 1.14              | None| 
-| 6                         | 1.18             | None| 
-| 7                         | 1.21             | None| 
-| 8                         | 1.25             | None| 
-| 9                         | 1.29            | None| 
-| 10                         | 1.33           | None| 
-| 11                         | 1.38            | None| 
-| 12                         |1.43            | None|
-| 13                         | 1.48              | None| 
-| 14                         | 1.54             | None| 
-| 15                         | 1.60              | None| 
-| 16                         | 1.67             | None| 
-| 17                         | 1.74             | None| 
-| 18                         | 1.82             | None| 
-| 19                         | 1.90             | None| 
-| 20                         | 2.00           | None| 
-| 21                         | 2.11            |  None |
-| 22                         | 2.22             | None|
-| 23                         | 2.35              | None| 
-| 24                         | 2.50              | None| 
-| 25                         | 2.67              | None| 
-| 26                         | 2.86             | None| 
-| 27                         | 3.08             | None| 
-| 28                         | 3.33             | None| 
-| 29                         | 3.64             | None| 
-| 30                         | 4.00            | None| 
-| 31                         | 4.44            | None| 
-| 32                         | 5.00             | None| 
-| 33                        | 5.71             | None| 
-| 34                         | 6.67            | None| 
-| 35                        | 8.00            | None| 
-
-## Attack Time
-| Level                         | Value         | Description
-|-------------------------------|----------------|-------------------------------------------------|
-| 0                         | 2             |  ms |
-| 1                         |5            |  ms |
-| 2                         |10             | ms|
-| 3                         | 20              | ms| 
-
-## Release Time
-| Level                         | Value         | Description
-|-------------------------------|----------------|-------------------------------------------------|
-| 0                         | 30             |  ms |
-| 1                         | 60            |  ms |
-| 2                         | 120             | ms|
-| 3                         | 240              | ms| 
+### Frequency Reference
+- `frequalizerArray`: Constant array of frequency values for each band: [250, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500] Hz

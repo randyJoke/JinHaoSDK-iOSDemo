@@ -495,17 +495,40 @@
             "SFRDW575",
             "TFRDW553",
             "SSRDW573",
-            "SSRDW57B"
+            "SSRDW57B",
+            "SSRDW57D"
         ],
         "defaultData":{
             "dsps":[
-                "B1E946878987782689840104",
-                "B4E586BB8B45450249860006",
-                "B1E754A9BB99892789840104",
-                "B1EB61999A57541389840004"
+                "B1EB34988A44662489844002",
+                "B4F59E998935442289B40006",
+                "B1E723877933753589A44004",
+                "B1D56B777845664589844002 "
             ],
             "holling":"B969FFFFFFFFFFFF42C60004",
-            "global":"009AF900CC073A200C"
+            "global":"009AF900CC0738200C"
+        }
+    },
+    "Aura":{
+        "shape":1,
+        "minVolume":0,
+        "maxVolume":10,
+        "listenable":true,
+        "fda":"QUH",
+        "sku":[
+            "SSRDW573",
+            "SSRDW57B",
+            "SSRDW57D"
+        ],
+        "defaultData":{
+            "dsps":[
+                "B1EB34988A44662489844002",
+                "B4F59E998935442289B40006",
+                "B1E723877933753589A44004",
+                "B1D56B777845664589844002 "
+            ],
+            "holling":"B969FFFFFFFFFFFF42C60004",
+            "global":"009AF900CC0738200C"
         }
     },
     "JH-D59FT":{

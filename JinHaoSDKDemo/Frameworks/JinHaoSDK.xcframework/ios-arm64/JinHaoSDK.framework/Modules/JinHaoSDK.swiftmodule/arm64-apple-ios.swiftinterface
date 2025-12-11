@@ -38,7 +38,7 @@ public enum JinHaoProfileType : Swift.UInt8 {
   case bluetoothHard
   case bluetoothSoft
   case advertisementName
-  case firmware
+  case hearingAidChip
   case ota
   case unknown
   public init?(rawValue: Swift.UInt8)
@@ -69,7 +69,7 @@ public struct JinHaoProfile : Swift.Codable {
   public var bhwPattern: Swift.String
   public var bhwVersion: Swift.String
   public var bswVersion: Swift.String
-  public var version: Swift.String
+  public var hearingAidChipVersion: Swift.String
   public var otaVersion: Swift.String
   public var seriesCode: Swift.String
   public var adName: Swift.String
@@ -86,13 +86,369 @@ public struct JinHaoProfile : Swift.Codable {
   public var maxVolume: Swift.Int {
     get
   }
+  public var dspDatas: [Foundation.Data]? {
+    get
+  }
+  public var globalData: Foundation.Data? {
+    get
+  }
+  public var hollingData: Foundation.Data? {
+    get
+  }
   public init()
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
 }
+@_hasMissingDesignatedInitializers final public class JinHaoA16DspParameterLabels {
+  public static let inputMultiplexerValues: [Swift.String]
+  public static let analogPreAmpGainValues: [Swift.String]
+  public static let digitalPreAmpGainValues: [Swift.String]
+  public static let matrixGainValues: [Swift.String]
+  public static let feedbackCancelerValues: [Swift.String]
+  public static let noiseReductionValues: [Swift.String]
+  public static let lowLevelExpansionValues: [Swift.String]
+  public static let windValues: [Swift.String]
+  public static let lowCutValues: [Swift.String]
+  public static let remoteMixValues: [Swift.String]
+  public static let mpoAttackConstantsValues: [Swift.String]
+  public static let mpoReleaseConstantsValues: [Swift.String]
+  public static let compressionRatiosValues: [Swift.String]
+  public static let compressionThresholdsValues: [Swift.String]
+  public static let compressionTimeConstantsValues: [Swift.String]
+  public static let maximumPowerOutputThresholdValues: [Swift.String]
+  public static let compressionBandEQsValues: [Swift.String]
+  @objc deinit
+}
+public enum JinHaoA16DspEnum {
+  public enum InputMode : Swift.Int, Swift.CaseIterable {
+    case ai1Mic1
+    case ai2DAIStreaming
+    case ai0TC
+    case ai3Mic2
+    case fixedCardioid
+    case fixedSuperCardioid
+    case fixedHyperCardioid
+    case adaptiveCardioid
+    case adaptiveSuperCardioid
+    case adaptiveHyperCardioid
+    case noiseGenerator
+    case mic1TC
+    case mic1DAI
+    case mic1NoiseGenerator
+    case fixedCardioidStreaming
+    case adaptiveCardioidStreaming
+    public var displayName: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.InputMode]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.InputMode] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum AnalogPreGain : Swift.Int, Swift.CaseIterable {
+    case db0, db3, db6, db9, db12, db15, db18, db21, db24, db27, db30, db33, db36
+    public var displayName: Swift.String {
+      get
+    }
+    public var valueInDB: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.AnalogPreGain]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.AnalogPreGain] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum DigitalPreGain : Swift.Int, Swift.CaseIterable {
+    case db0, db6, db12, db18
+    public var displayName: Swift.String {
+      get
+    }
+    public var valueInDB: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.DigitalPreGain]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.DigitalPreGain] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum MatrixGain : Swift.Int, Swift.CaseIterable {
+    case db0, dbMinus1, dbMinus2, dbMinus3, dbMinus4, dbMinus5
+    case dbMinus6, dbMinus7, dbMinus8, dbMinus9, dbMinus10, dbMinus11
+    case dbMinus12, dbMinus13, dbMinus14, dbMinus15, dbMinus16, dbMinus17
+    case dbMinus18, dbMinus19, dbMinus20, dbMinus21, dbMinus22, dbMinus23
+    case dbMinus24, dbMinus25, dbMinus26, dbMinus27, dbMinus28, dbMinus29
+    case dbMinus30, dbMinus31, dbMinus32, dbMinus33, dbMinus34, dbMinus35
+    case dbMinus36, dbMinus37, dbMinus38, dbMinus39, dbMinus40, dbMinus41
+    case dbMinus42, dbMinus43, dbMinus44, dbMinus45, dbMinus46, dbMinus47
+    public var displayName: Swift.String {
+      get
+    }
+    public var valueInDB: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.MatrixGain]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.MatrixGain] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum FeedbackCanceler : Swift.Int, Swift.CaseIterable {
+    case off, normal, aggressive
+    public var displayName: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.FeedbackCanceler]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.FeedbackCanceler] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum NoiseReduction : Swift.Int, Swift.CaseIterable {
+    case off, low, medium, high, max
+    public var displayName: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.NoiseReduction]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.NoiseReduction] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum SwitchState : Swift.Int, Swift.CaseIterable {
+    case off, on
+    public var displayName: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.SwitchState]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.SwitchState] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum LowCutFilter : Swift.Int, Swift.CaseIterable {
+    case off, hz250, hz500, hz750, hz1000, hz1250, hz1500, hz2000, hz2500, hz3000
+    public var displayName: Swift.String {
+      get
+    }
+    public var frequency: Swift.Int? {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.LowCutFilter]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.LowCutFilter] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum RemoteMixRatio : Swift.Int, Swift.CaseIterable {
+    case db0, dbMinus3, dbMinus6, dbMinus9, dbMinus12
+    public var displayName: Swift.String {
+      get
+    }
+    public var valueInDB: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.RemoteMixRatio]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.RemoteMixRatio] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum MPOAttackTime : Swift.Int, Swift.CaseIterable {
+    case ms10, ms20, ms30, ms40
+    public var displayName: Swift.String {
+      get
+    }
+    public var timeInMS: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.MPOAttackTime]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.MPOAttackTime] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum MPOReleaseTime : Swift.Int, Swift.CaseIterable {
+    case ms40, ms80, ms150, ms350
+    public var displayName: Swift.String {
+      get
+    }
+    public var timeInMS: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.MPOReleaseTime]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.MPOReleaseTime] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum CompressionRatio : Swift.Int, Swift.CaseIterable {
+    case ratio1_00, ratio1_03, ratio1_05, ratio1_08, ratio1_11
+    case ratio1_14, ratio1_18, ratio1_21, ratio1_25, ratio1_29
+    case ratio1_33, ratio1_38, ratio1_43, ratio1_48, ratio1_54
+    case ratio1_60, ratio1_67, ratio1_74, ratio1_82, ratio1_90
+    case ratio2_00, ratio2_11, ratio2_22, ratio2_35, ratio2_50
+    case ratio2_67, ratio2_86, ratio3_08, ratio3_33, ratio3_64
+    case ratio4_00, ratio4_44, ratio5_00, ratio5_71, ratio6_67, ratio8_00
+    public var displayName: Swift.String {
+      get
+    }
+    public var ratioValue: Swift.Double {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.CompressionRatio]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.CompressionRatio] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum CompressionThreshold : Swift.Int, Swift.CaseIterable {
+    case db20, db22, db24, db26, db28, db30, db32, db34, db36, db38
+    case db40, db42, db44, db46, db48, db50, db52, db54, db56, db58
+    case db60, db62, db64, db66, db68, db70, db72, db74, db76, db78, db80, db82
+    public var displayName: Swift.String {
+      get
+    }
+    public var thresholdInDB: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.CompressionThreshold]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.CompressionThreshold] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum CompressionConstant : Swift.Int, Swift.CaseIterable {
+    case constant0, constant1, constant2, constant3, constant4, constant5, constant6, constant7, constant8
+    public var displayName: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.CompressionConstant]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.CompressionConstant] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum MaximumPowerOutput : Swift.Int, Swift.CaseIterable {
+    case off, muo, dbMinus2, dbMinus4, dbMinus6, dbMinus8, dbMinus10
+    case dbMinus12, dbMinus14, dbMinus16, dbMinus18, dbMinus20
+    case dbMinus22, dbMinus24, dbMinus26, dbMinus28
+    public var displayName: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.MaximumPowerOutput]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.MaximumPowerOutput] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum EqualizerGain : Swift.Int, Swift.CaseIterable {
+    case dbMinus40, dbMinus38, dbMinus36, dbMinus34, dbMinus32
+    case dbMinus30, dbMinus28, dbMinus26, dbMinus24, dbMinus22
+    case dbMinus20, dbMinus18, dbMinus16, dbMinus14, dbMinus12
+    case dbMinus10, dbMinus8, dbMinus6, dbMinus4, dbMinus2, db0
+    public var displayName: Swift.String {
+      get
+    }
+    public var valueInDB: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.EqualizerGain]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.EqualizerGain] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum FrequencyBand : Swift.Int, Swift.CaseIterable {
+    case hz250, hz500, hz1000, hz1500, hz2000, hz2500, hz3000, hz3500
+    case hz4000, hz4500, hz5000, hz5500, hz6000, hz6500, hz7000, hz7500
+    public var displayName: Swift.String {
+      get
+    }
+    public var frequency: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA16DspEnum.FrequencyBand]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA16DspEnum.FrequencyBand] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+}
 public struct JinHaoRawData {
 }
 @objc @_inheritsConvenienceInitializers public class JinHaoH01Accessory : JinHaoSDK.JinHaoAccessory {
+  override public func request(request: JinHaoSDK.JinHaoRequest, complete: ((JinHaoSDK.JinHaoResult) -> Swift.Void)?)
   override public init(peripheral: CoreBluetooth.CBPeripheral, mfgData: Foundation.Data, manager: JinHaoSDK.AccessoryManager)
   @objc deinit
 }
@@ -114,6 +470,24 @@ public struct PL3CompTime {
   public var ch15: Swift.UInt8
   public var ch16: Swift.UInt8
   public func description(value: Swift.UInt8) -> Swift.String
+}
+@objc public enum DFUFirmwareType : Swift.UInt8 {
+  case tiny600_all
+  case tiny600_bin
+  case tiny600_parameter
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public class DFUFirmware : ObjectiveC.NSObject {
+  @objc public var totalSize: Swift.Int
+  @objc public var firmwareType: JinHaoSDK.DFUFirmwareType
+  @objc public var binaries: Foundation.Data
+  @objc public init(binFile: Foundation.Data, type: JinHaoSDK.DFUFirmwareType)
+  @objc public init(urlToBinFile: Foundation.URL, type: JinHaoSDK.DFUFirmwareType) throws
+  @objc deinit
 }
 public struct PL3CompRatio {
   public var ch1: Swift.UInt8
@@ -195,8 +569,8 @@ public protocol JinHaoDsp : Swift.Equatable {
   var direction: JinHaoSDK.JinHaoDirection { get set }
   var noise: JinHaoSDK.JinHaoNoise { get set }
   var frequences: [Swift.Int] { get }
-  init(data: Foundation.Data)
-  func toData() -> Foundation.Data
+  init(bytes: Foundation.Data)
+  func toBytes() -> Foundation.Data
   mutating func setEq(eq: Swift.Int, at frequence: Swift.Int)
   func getEq(at frequence: Swift.Int) -> Swift.Int?
   var minEQValue: Swift.Int { get }
@@ -213,11 +587,13 @@ public enum JinHaoRequest {
   case readDsp(program: Swift.Int)
   case readGlobalDsp(chip: JinHaoSDK.JinHaoChip)
   case readProfile(type: JinHaoSDK.JinHaoProfileType)
+  case readOrientation
   case writeDsp(dsp: any JinHaoSDK.JinHaoDsp, program: Swift.Int, withResponse: Swift.Bool)
   case writeDspData(data: Foundation.Data, program: Swift.Int, withResponse: Swift.Bool)
   case writeGlobalDsp(global: any JinHaoSDK.JinHaoGlobalDsp, chip: JinHaoSDK.JinHaoChip, withResponse: Swift.Bool)
   case writeGlobalDspData(data: Foundation.Data, chip: JinHaoSDK.JinHaoChip, withResponse: Swift.Bool)
   case writeProfile(data: Foundation.Data, type: JinHaoSDK.JinHaoProfileType)
+  case writeOrientation(orientation: JinHaoSDK.AccessoryOrientation)
   case controlVolume(volume: Swift.Int, program: Swift.Int)
   case controlProgram(program: Swift.Int)
   case controlLockChip
@@ -226,7 +602,7 @@ public enum JinHaoRequest {
   case controlShip
   case enterDUT
   case setTransparency(level: Swift.Int)
-  case setBrEdr(enable: Swift.Bool)
+  case setBrEdr(enable: Swift.Bool, continuousIfEnable: Swift.Bool)
   case readBrEdr
   case getTransparencyLevel
   case beginFind
@@ -241,6 +617,7 @@ public enum JinHaoRequest {
   case writeProtocolData(data: JinHaoSDK.JinHaoRawData)
 }
 public protocol JinHaoAccessoryDelegate : JinHaoSDK.AccessoryDelegate {
+  func didSendRequest(_ accessory: JinHaoSDK.JinHaoAccessory, request: JinHaoSDK.JinHaoRequest)
   func batteryDidChanged(_ accessory: JinHaoSDK.JinHaoAccessory, bat: Swift.Int)
   func didNotifyProgram(_ accessory: JinHaoSDK.JinHaoAccessory, previous: Swift.Int, current: Swift.Int)
   func didNotifyVolume(_ accessory: JinHaoSDK.JinHaoAccessory, previous: Swift.Int, current: Swift.Int)
@@ -277,7 +654,10 @@ public protocol JinHaoAccessoryDelegate : JinHaoSDK.AccessoryDelegate {
   public var profile: JinHaoSDK.JinHaoProfile {
     get
   }
-  public var brEdr: Swift.Bool {
+  public var brEdr: Swift.Bool? {
+    get
+  }
+  public var brEdrContinuousIfEnable: Swift.Bool {
     get
   }
   public var transEnable: Swift.Bool {
@@ -287,6 +667,9 @@ public protocol JinHaoAccessoryDelegate : JinHaoSDK.AccessoryDelegate {
     get
   }
   public var hearingSupported: Swift.Bool {
+    get
+  }
+  override public var name: Swift.String {
     get
   }
   override public var localName: Swift.String? {
@@ -307,12 +690,21 @@ public protocol JinHaoAccessoryDelegate : JinHaoSDK.AccessoryDelegate {
   }
   public init(peripheral: CoreBluetooth.CBPeripheral, mfgData: Foundation.Data, manager: JinHaoSDK.AccessoryManager)
   @objc deinit
+  public func startOTA(configure: JinHaoSDK.DFUConfigure)
+  public func stopOTA()
   public func request(request: JinHaoSDK.JinHaoRequest, complete: ((JinHaoSDK.JinHaoResult) -> Swift.Void)?)
   public func request(requests: [JinHaoSDK.JinHaoRequest], complete: (() -> Swift.Void)?)
   public func readBattery()
   public func writeNumberOfProgram(number: Swift.Int, complete: ((JinHaoSDK.JinHaoResult) -> Swift.Void)?)
   public func readNumberOfProgram(complete: ((JinHaoSDK.JinHaoResult) -> Swift.Void)?)
   public func readScenesOfProgram(complete: ((JinHaoSDK.JinHaoResult) -> Swift.Void)?)
+}
+@objc public class DFUConfigure : ObjectiveC.NSObject {
+  weak public var delegate: (any JinHaoSDK.DFUServiceDelegate)?
+  weak public var progressDelegate: (any JinHaoSDK.DFUProgressDelegate)?
+  @objc public init(queue: Dispatch.DispatchQueue? = nil, delegateQueue: Dispatch.DispatchQueue = DispatchQueue.main, progressQueue: Dispatch.DispatchQueue = DispatchQueue.main)
+  @objc public func with(firmware file: JinHaoSDK.DFUFirmware) -> JinHaoSDK.DFUConfigure
+  @objc deinit
 }
 public struct PL3InputSettings {
   public var inputMux: Swift.UInt8
@@ -331,47 +723,6 @@ public struct PL3InputSettings {
   public var remoteMixRatio: Swift.UInt8
   public var mpoAttack: Swift.UInt8
   public var mpoRelease: Swift.UInt8
-}
-public struct JinHaoA4Dsp : JinHaoSDK.JinHaoDsp {
-  public enum MPO {
-    case off
-    case low
-    case medium
-    case high
-    public static func == (a: JinHaoSDK.JinHaoA4Dsp.MPO, b: JinHaoSDK.JinHaoA4Dsp.MPO) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public var hashValue: Swift.Int {
-      get
-    }
-  }
-  public var direction: JinHaoSDK.JinHaoDirection {
-    get
-    set
-  }
-  public var noise: JinHaoSDK.JinHaoNoise {
-    get
-    set
-  }
-  public var mpo: JinHaoSDK.JinHaoA4Dsp.MPO? {
-    get
-    set
-  }
-  public var frequences: [Swift.Int] {
-    get
-  }
-  public var minEQValue: Swift.Int {
-    get
-  }
-  public var maxEQValue: Swift.Int {
-    get
-  }
-  public init(data: Foundation.Data)
-  public func toData() -> Foundation.Data
-  public mutating func setEq(eq: Swift.Int, at frequence: Swift.Int)
-  public func getEq(at frequence: Swift.Int) -> Swift.Int?
-}
-extension JinHaoSDK.JinHaoA4Dsp : Swift.Equatable {
-  public static func == (lhs: JinHaoSDK.JinHaoA4Dsp, rhs: JinHaoSDK.JinHaoA4Dsp) -> Swift.Bool
 }
 @_hasMissingDesignatedInitializers public class JinHaoAccessoryRepository : Swift.Codable {
   @objc deinit
@@ -446,6 +797,63 @@ public protocol JinHaoGlobalDsp {
   init(data: Foundation.Data)
   func toData() -> Foundation.Data
 }
+public struct JinHaoA4Dsp {
+  public var inputMode: JinHaoSDK.JinHaoA4DspEnum.InputMode
+  public var preGainMic1: JinHaoSDK.JinHaoA4DspEnum.PreampGain
+  public var preGainMic2: JinHaoSDK.JinHaoA4DspEnum.PreampGain
+  public var matrixGainMantissa: Swift.Int
+  public var matrixGainExponent: Swift.Int
+  public var feedbackCanceler: JinHaoSDK.JinHaoA4DspEnum.FeedbackCanceler
+  public var expansion: JinHaoSDK.JinHaoA4DspEnum.Expansion
+  public var lowCutFilter: JinHaoSDK.JinHaoA4DspEnum.LowCutFilter
+  public var highCutFilter: JinHaoSDK.JinHaoA4DspEnum.HighCutFilter
+  public var maximumPowerOutput: JinHaoSDK.JinHaoA4DspEnum.MaximumPowerOutput
+  public var noiseReduction: JinHaoSDK.JinHaoA4DspEnum.NoiseReduction
+  public var notCare: Swift.Int
+  public var compressionRatio1: JinHaoSDK.JinHaoA4DspEnum.CompressionRatio
+  public var compressionRatio2: JinHaoSDK.JinHaoA4DspEnum.CompressionRatio
+  public var compressionRatio3: JinHaoSDK.JinHaoA4DspEnum.CompressionRatio
+  public var compressionRatio4: JinHaoSDK.JinHaoA4DspEnum.CompressionRatio
+  public var compressionThreshold: JinHaoSDK.JinHaoA4DspEnum.CompressionThreshold
+  public var equalizerArray: [JinHaoSDK.JinHaoA4DspEnum.EqualizerGain]
+  public let frequalizerArray: [Swift.Int]
+  public init()
+  public init(bytes: Foundation.Data)
+  public func toBytes() -> Foundation.Data
+  public mutating func setMatrixGain(_ matrixGain: Swift.Int)
+  public func getMatrixGain() -> Swift.Int
+  public var matrixGainDisplayValue: Swift.String {
+    get
+  }
+  public func getEqualizerGain(for frequency: JinHaoSDK.JinHaoA4DspEnum.FrequencyBand) -> JinHaoSDK.JinHaoA4DspEnum.EqualizerGain
+  public mutating func setEqualizerGain(_ gain: JinHaoSDK.JinHaoA4DspEnum.EqualizerGain, for frequency: JinHaoSDK.JinHaoA4DspEnum.FrequencyBand)
+  public static func testDataConsistency()
+  public var description: Swift.String {
+    get
+  }
+}
+extension JinHaoSDK.JinHaoA4Dsp : JinHaoSDK.JinHaoDsp {
+  public var direction: JinHaoSDK.JinHaoDirection {
+    get
+    set
+  }
+  public var noise: JinHaoSDK.JinHaoNoise {
+    get
+    set
+  }
+  public var frequences: [Swift.Int] {
+    get
+  }
+  public mutating func setEq(eq: Swift.Int, at frequence: Swift.Int)
+  public func getEq(at frequence: Swift.Int) -> Swift.Int?
+  public var minEQValue: Swift.Int {
+    get
+  }
+  public var maxEQValue: Swift.Int {
+    get
+  }
+  public static func == (a: JinHaoSDK.JinHaoA4Dsp, b: JinHaoSDK.JinHaoA4Dsp) -> Swift.Bool
+}
 public struct JinHaoChannelData {
   public var freq: Swift.Int
   public var eq: Swift.Int
@@ -453,6 +861,303 @@ public struct JinHaoChannelData {
   public var compressRatio: Swift.Int
   public var mpo: Swift.Int
   public init(freq: Swift.Int, eq: Swift.Int, compressThreshold: Swift.Int, compressRatio: Swift.Int, mpo: Swift.Int)
+}
+public struct JinHaoA16Dsp {
+  public var inputMode: JinHaoSDK.JinHaoA16DspEnum.InputMode
+  public var analogPreGainP0: JinHaoSDK.JinHaoA16DspEnum.AnalogPreGain
+  public var analogPreGainP1: JinHaoSDK.JinHaoA16DspEnum.AnalogPreGain
+  public var digitalPreGainP1: JinHaoSDK.JinHaoA16DspEnum.DigitalPreGain
+  public var digitalPreGainP2: JinHaoSDK.JinHaoA16DspEnum.DigitalPreGain
+  public var matrixGainMantissa: Swift.Int
+  public var matrixGainExponent: Swift.Int
+  public var feedbackCanceler: JinHaoSDK.JinHaoA16DspEnum.FeedbackCanceler
+  public var noiseReduction: JinHaoSDK.JinHaoA16DspEnum.NoiseReduction
+  public var lowLevelExpansion: JinHaoSDK.JinHaoA16DspEnum.SwitchState
+  public var windNoiseReduction: JinHaoSDK.JinHaoA16DspEnum.SwitchState
+  public var equalizerArray: [JinHaoSDK.JinHaoA16DspEnum.EqualizerGain]
+  public var compressionRatioArray: [JinHaoSDK.JinHaoA16DspEnum.CompressionRatio]
+  public var compressionConstantArray: [JinHaoSDK.JinHaoA16DspEnum.CompressionConstant]
+  public var compressionThresholdArray: [JinHaoSDK.JinHaoA16DspEnum.CompressionThreshold]
+  public var maximumPowerOutputArray: [JinHaoSDK.JinHaoA16DspEnum.MaximumPowerOutput]
+  public var mpoAttackTime: JinHaoSDK.JinHaoA16DspEnum.MPOAttackTime
+  public var mpoReleaseTime: JinHaoSDK.JinHaoA16DspEnum.MPOReleaseTime
+  public var remoteMixRatio: JinHaoSDK.JinHaoA16DspEnum.RemoteMixRatio
+  public var lowCutInputFilter: JinHaoSDK.JinHaoA16DspEnum.LowCutFilter
+  public let frequalizerArray: [Swift.Int]
+  public init()
+  public init(bytes: Foundation.Data)
+  public func toBytes() -> Foundation.Data
+  public mutating func setMatrixGain(_ matrixGain: Swift.Int)
+  public func getMatrixGain() -> Swift.Int
+  public var matrixGainDisplayValue: Swift.String {
+    get
+  }
+  public func getEqualizerGain(for frequency: JinHaoSDK.JinHaoA16DspEnum.FrequencyBand) -> JinHaoSDK.JinHaoA16DspEnum.EqualizerGain
+  public mutating func setEqualizerGain(_ gain: JinHaoSDK.JinHaoA16DspEnum.EqualizerGain, for frequency: JinHaoSDK.JinHaoA16DspEnum.FrequencyBand)
+  public func getCompressionRatio(for frequency: JinHaoSDK.JinHaoA16DspEnum.FrequencyBand) -> JinHaoSDK.JinHaoA16DspEnum.CompressionRatio
+  public mutating func setCompressionRatio(_ ratio: JinHaoSDK.JinHaoA16DspEnum.CompressionRatio, for frequency: JinHaoSDK.JinHaoA16DspEnum.FrequencyBand)
+  public func getCompressionConstant(for frequency: JinHaoSDK.JinHaoA16DspEnum.FrequencyBand) -> JinHaoSDK.JinHaoA16DspEnum.CompressionConstant
+  public mutating func setCompressionConstant(_ constant: JinHaoSDK.JinHaoA16DspEnum.CompressionConstant, for frequency: JinHaoSDK.JinHaoA16DspEnum.FrequencyBand)
+  public func getCompressionThreshold(for frequency: JinHaoSDK.JinHaoA16DspEnum.FrequencyBand) -> JinHaoSDK.JinHaoA16DspEnum.CompressionThreshold
+  public mutating func setCompressionThreshold(_ threshold: JinHaoSDK.JinHaoA16DspEnum.CompressionThreshold, for frequency: JinHaoSDK.JinHaoA16DspEnum.FrequencyBand)
+  public func getMaximumPowerOutput(for frequency: JinHaoSDK.JinHaoA16DspEnum.FrequencyBand) -> JinHaoSDK.JinHaoA16DspEnum.MaximumPowerOutput
+  public mutating func setMaximumPowerOutput(_ mpo: JinHaoSDK.JinHaoA16DspEnum.MaximumPowerOutput, for frequency: JinHaoSDK.JinHaoA16DspEnum.FrequencyBand)
+  public static func testDataConsistency()
+  public var description: Swift.String {
+    get
+  }
+}
+extension JinHaoSDK.JinHaoA16Dsp : JinHaoSDK.JinHaoDsp {
+  public var direction: JinHaoSDK.JinHaoDirection {
+    get
+    set
+  }
+  public var noise: JinHaoSDK.JinHaoNoise {
+    get
+    set
+  }
+  public var frequences: [Swift.Int] {
+    get
+  }
+  public mutating func setEq(eq: Swift.Int, at frequence: Swift.Int)
+  public func getEq(at frequence: Swift.Int) -> Swift.Int?
+  public var minEQValue: Swift.Int {
+    get
+  }
+  public var maxEQValue: Swift.Int {
+    get
+  }
+  public static func == (a: JinHaoSDK.JinHaoA16Dsp, b: JinHaoSDK.JinHaoA16Dsp) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers final public class JinHaoA4DspParameterLabels {
+  public static let inputMultiplexerValues: [Swift.String]
+  public static let preampGainValues: [Swift.String]
+  public static let matrixGainValues: [Swift.String]
+  public static let expansionValues: [Swift.String]
+  public static let feedbackCancelerValues: [Swift.String]
+  public static let noiseReductionValues: [Swift.String]
+  public static let lowCutValues: [Swift.String]
+  public static let highCutValues: [Swift.String]
+  public static let compressionRatiosValues: [Swift.String]
+  public static let compressionThresholdsValues: [Swift.String]
+  public static let maximumPowerOutputThresholdValues: [Swift.String]
+  public static let compressionBandEQsValues: [Swift.String]
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class JinHaoA4DspEnum {
+  public enum InputMode : Swift.Int, Swift.CaseIterable {
+    case ai0TC
+    case ai1Mic1
+    case ai2DAIAUX
+    case ai3Mic2
+    case fixedHyperCardioid
+    case ai1Ai2
+    case ai0Ai3
+    public var displayName: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA4DspEnum.InputMode]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA4DspEnum.InputMode] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum PreampGain : Swift.Int, Swift.CaseIterable {
+    case db0, db12, db15, db18, db21, db24, db27, db30
+    public var displayName: Swift.String {
+      get
+    }
+    public var valueInDB: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA4DspEnum.PreampGain]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA4DspEnum.PreampGain] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum FeedbackCanceler : Swift.Int, Swift.CaseIterable {
+    case off, on
+    public var displayName: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA4DspEnum.FeedbackCanceler]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA4DspEnum.FeedbackCanceler] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum Expansion : Swift.Int, Swift.CaseIterable {
+    case off, on
+    public var displayName: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA4DspEnum.Expansion]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA4DspEnum.Expansion] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum NoiseReduction : Swift.Int, Swift.CaseIterable {
+    case off, low, medium, high
+    public var displayName: Swift.String {
+      get
+    }
+    public var reductionInDB: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA4DspEnum.NoiseReduction]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA4DspEnum.NoiseReduction] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum LowCutFilter : Swift.Int, Swift.CaseIterable {
+    case hz200, hz500, hz750, hz1000, hz1500, hz2000, hz3000
+    public var displayName: Swift.String {
+      get
+    }
+    public var frequency: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA4DspEnum.LowCutFilter]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA4DspEnum.LowCutFilter] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum HighCutFilter : Swift.Int, Swift.CaseIterable {
+    case hz8000, hz4000, hz3150, hz2500, hz2000, hz1600, hz1250
+    public var displayName: Swift.String {
+      get
+    }
+    public var frequency: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA4DspEnum.HighCutFilter]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA4DspEnum.HighCutFilter] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum CompressionRatio : Swift.Int, Swift.CaseIterable {
+    case ratio1_0, ratio1_14, ratio1_33, ratio1_60, ratio2_0, ratio2_56, ratio4_0
+    public var displayName: Swift.String {
+      get
+    }
+    public var ratio: Swift.Double {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA4DspEnum.CompressionRatio]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA4DspEnum.CompressionRatio] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum CompressionThreshold : Swift.Int, Swift.CaseIterable {
+    case db40, db45, db50, db55, db60, db65, db70
+    public var displayName: Swift.String {
+      get
+    }
+    public var thresholdInDB: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA4DspEnum.CompressionThreshold]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA4DspEnum.CompressionThreshold] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum MaximumPowerOutput : Swift.Int, Swift.CaseIterable {
+    case muo, dbMinus4, dbMinus8, dbMinus12, dbMinus16, dbMinus20, dbMinus24
+    public var displayName: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA4DspEnum.MaximumPowerOutput]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA4DspEnum.MaximumPowerOutput] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum EqualizerGain : Swift.Int, Swift.CaseIterable {
+    case dbMinus30, dbMinus28, dbMinus26, dbMinus24, dbMinus22, dbMinus20
+    case dbMinus18, dbMinus16, dbMinus14, dbMinus12, dbMinus10, dbMinus8
+    case dbMinus6, dbMinus4, dbMinus2, db0
+    public var displayName: Swift.String {
+      get
+    }
+    public var valueInDB: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA4DspEnum.EqualizerGain]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA4DspEnum.EqualizerGain] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum FrequencyBand : Swift.Int, Swift.CaseIterable {
+    case hz250, hz500, hz1000, hz1500, hz2000, hz2500, hz3000, hz3500, hz4000, hz5000, hz6000, hz7000
+    public var frequency: Swift.Int {
+      get
+    }
+    public var displayName: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias AllCases = [JinHaoSDK.JinHaoA4DspEnum.FrequencyBand]
+    public typealias RawValue = Swift.Int
+    nonisolated public static var allCases: [JinHaoSDK.JinHaoA4DspEnum.FrequencyBand] {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc deinit
 }
 public enum JinHaoResultError : Swift.Error {
   case timeout
@@ -469,7 +1174,8 @@ public enum JinHaoResponse {
   case didReadGlobal(data: Foundation.Data)
   case didReadProfile(data: Foundation.Data, type: JinHaoSDK.JinHaoProfileType)
   case didReadTransparency(level: Swift.Int)
-  case didReadBrEdr(enable: Swift.Bool)
+  case didReadOrientation(orientation: JinHaoSDK.AccessoryOrientation)
+  case didReadBrEdr(enable: Swift.Bool, continuousIfEnable: Swift.Bool)
   case didReadHearingTest(supported: Swift.Bool)
   case didReadPairCode(code: Foundation.Data)
   case didNotify(program: Swift.Int, volume: Swift.Int)
@@ -547,6 +1253,65 @@ public protocol PL3AccessoryDelegate : AnyObject {
   @objc public func create(_ cmd: Swift.UInt8, data: Foundation.Data?, read: Swift.Bool = false)
   @objc public func parse(_ packet: Foundation.Data)
   @objc deinit
+}
+@objc public enum DFUError : Swift.Int {
+  case fileNotSpecified
+  case fileInvalid
+  case failedToConnect
+  case deviceDisconnected
+  case bluetoothDisabled
+  case serviceDiscoveryFailed
+  case deviceNotSupported
+  case readingVersionFailed
+  case enablingControlPointFailed
+  case writingCharacteristicFailed
+  case receivingNotificationFailed
+  case unsupportedResponse
+  case pairFailed
+  case queryOTAFailed
+  case bytesLost
+  case crcError
+  case invalidInternalState
+  case diskNotEnough
+  case packetSeqFailed
+  case bootWriteFailed
+  case timeout
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum DFUState : Swift.Int {
+  case connecting
+  case starting
+  case enablingDfuMode
+  case paired
+  case needOTA
+  case uploading
+  case validating
+  case validated
+  case disconnecting
+  case reconnecting
+  case completed
+  case aborted
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension JinHaoSDK.DFUState : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+public protocol DFUProgressDelegate : ObjectiveC.NSObjectProtocol {
+  func dfuProgressDidChange(to progress: Swift.Int, currentSpeedBytesPerSecond: Swift.Double, avgSpeedBytesPerSecond: Swift.Double)
+}
+public protocol DFUServiceDelegate : ObjectiveC.NSObjectProtocol {
+  func dfuStateDidChange(to state: JinHaoSDK.DFUState)
+  func dfuError(_ error: JinHaoSDK.DFUError, didOccurWithMessage message: Swift.String)
 }
 public protocol JinHaoDisposable {
   func dispose()
@@ -647,7 +1412,7 @@ public protocol AccessoryManagerScanningDelegate : ObjectiveC.NSObjectProtocol {
   public func startScan()
   public func startScan(duration: Foundation.TimeInterval)
   public func stopScan()
-  public func clearAccessories()
+  public func clearAccessories(where shouldRemove: (_ key: Swift.String, _ value: JinHaoSDK.Accessory) -> Swift.Bool)
 }
 extension JinHaoSDK.AccessoryManager : CoreBluetooth.CBCentralManagerDelegate {
   @objc dynamic public func centralManagerDidUpdateState(_ central: CoreBluetooth.CBCentralManager)
@@ -661,6 +1426,23 @@ extension JinHaoSDK.AccessoryManager : CoreBluetooth.CBCentralManagerDelegate {
   public static func sdkVersion() -> Swift.String
   @objc override dynamic public init()
   @objc deinit
+}
+@objc public enum LogLevel : Swift.Int {
+  case debug = 0
+  case verbose = 1
+  case info = 5
+  case application = 10
+  case warning = 15
+  case error = 20
+  public func name() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol LoggerDelegate : ObjectiveC.NSObjectProtocol {
+  func logWith(_ level: JinHaoSDK.LogLevel, message: Swift.String)
 }
 public struct Queue<T> {
   public var count: Swift.Int {
@@ -687,51 +1469,6 @@ public enum AccessoryOrientation : Swift.UInt8, Swift.Codable {
   public var rawValue: Swift.UInt8 {
     get
   }
-}
-public struct JinHaoA16Dsp : JinHaoSDK.JinHaoDsp {
-  public var frequences: [Swift.Int] {
-    get
-  }
-  public var direction: JinHaoSDK.JinHaoDirection {
-    get
-    set
-  }
-  public var noise: JinHaoSDK.JinHaoNoise {
-    get
-    set
-  }
-  public var minEQValue: Swift.Int {
-    get
-  }
-  public var maxEQValue: Swift.Int {
-    get
-  }
-  public init(data: Foundation.Data)
-  public func toData() -> Foundation.Data
-  public mutating func setEq(eq: Swift.Int, at frequence: Swift.Int)
-  public func getEq(at frequence: Swift.Int) -> Swift.Int?
-  public mutating func setCompressRatioLevel(compressRatioLevel: Swift.Int, at frequence: Swift.Int)
-  public func getCompressRatioLevel(at frequence: Swift.Int) -> Swift.Int?
-  public func getCompressRatioValue(level: Swift.Int) -> Swift.Float?
-  public mutating func setCompressThresholdLevel(compressThresholdLevel: Swift.Int, at frequence: Swift.Int)
-  public func getCompressThresholdLevel(at frequence: Swift.Int) -> Swift.Int?
-  public func getCompressThresholdValue(level: Swift.Int) -> Swift.Int?
-  public mutating func setMpoLevel(mpoLevel: Swift.Int, at frequence: Swift.Int)
-  public func getMpoLevel(at frequence: Swift.Int) -> Swift.Int?
-  public func getMpoValue(level: Swift.Int) -> Swift.Int?
-  public var attackTimeLevel: Swift.Int {
-    get
-    set
-  }
-  public var releaseTimeLevel: Swift.Int {
-    get
-    set
-  }
-  public func getAttackTimeValue(level: Swift.Int) -> Swift.Int
-  public func getReleaseTimeValue(level: Swift.Int) -> Swift.Int
-}
-extension JinHaoSDK.JinHaoA16Dsp : Swift.Equatable {
-  public static func == (lhs: JinHaoSDK.JinHaoA16Dsp, rhs: JinHaoSDK.JinHaoA16Dsp) -> Swift.Bool
 }
 public struct PL3MpoConfig {
   public var ch1: Swift.UInt8
@@ -798,6 +1535,60 @@ public struct JinHaoParameters {
 extension JinHaoSDK.JinHaoProfileType : Swift.Equatable {}
 extension JinHaoSDK.JinHaoProfileType : Swift.Hashable {}
 extension JinHaoSDK.JinHaoProfileType : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.InputMode : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.InputMode : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.InputMode : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.AnalogPreGain : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.AnalogPreGain : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.AnalogPreGain : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.DigitalPreGain : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.DigitalPreGain : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.DigitalPreGain : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.MatrixGain : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.MatrixGain : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.MatrixGain : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.FeedbackCanceler : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.FeedbackCanceler : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.FeedbackCanceler : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.NoiseReduction : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.NoiseReduction : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.NoiseReduction : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.SwitchState : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.SwitchState : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.SwitchState : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.LowCutFilter : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.LowCutFilter : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.LowCutFilter : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.RemoteMixRatio : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.RemoteMixRatio : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.RemoteMixRatio : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.MPOAttackTime : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.MPOAttackTime : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.MPOAttackTime : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.MPOReleaseTime : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.MPOReleaseTime : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.MPOReleaseTime : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.CompressionRatio : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.CompressionRatio : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.CompressionRatio : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.CompressionThreshold : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.CompressionThreshold : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.CompressionThreshold : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.CompressionConstant : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.CompressionConstant : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.CompressionConstant : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.MaximumPowerOutput : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.MaximumPowerOutput : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.MaximumPowerOutput : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.EqualizerGain : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.EqualizerGain : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.EqualizerGain : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA16DspEnum.FrequencyBand : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA16DspEnum.FrequencyBand : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA16DspEnum.FrequencyBand : Swift.RawRepresentable {}
+extension JinHaoSDK.DFUFirmwareType : Swift.Equatable {}
+extension JinHaoSDK.DFUFirmwareType : Swift.Hashable {}
+extension JinHaoSDK.DFUFirmwareType : Swift.RawRepresentable {}
 extension JinHaoSDK.JinHaoProgram : Swift.Equatable {}
 extension JinHaoSDK.JinHaoProgram : Swift.Hashable {}
 extension JinHaoSDK.JinHaoProgram : Swift.RawRepresentable {}
@@ -811,15 +1602,58 @@ extension JinHaoSDK.JinHaoDirection : Swift.Equatable {}
 extension JinHaoSDK.JinHaoDirection : Swift.Hashable {}
 extension JinHaoSDK.JinHaoNoise : Swift.Equatable {}
 extension JinHaoSDK.JinHaoNoise : Swift.Hashable {}
-extension JinHaoSDK.JinHaoA4Dsp.MPO : Swift.Equatable {}
-extension JinHaoSDK.JinHaoA4Dsp.MPO : Swift.Hashable {}
 extension JinHaoSDK.PL3Error : Swift.Equatable {}
 extension JinHaoSDK.PL3Error : Swift.Hashable {}
 extension JinHaoSDK.JinHaoDataLogType : Swift.Equatable {}
 extension JinHaoSDK.JinHaoDataLogType : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.InputMode : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA4DspEnum.InputMode : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.InputMode : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA4DspEnum.PreampGain : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA4DspEnum.PreampGain : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.PreampGain : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA4DspEnum.FeedbackCanceler : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA4DspEnum.FeedbackCanceler : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.FeedbackCanceler : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA4DspEnum.Expansion : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA4DspEnum.Expansion : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.Expansion : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA4DspEnum.NoiseReduction : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA4DspEnum.NoiseReduction : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.NoiseReduction : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA4DspEnum.LowCutFilter : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA4DspEnum.LowCutFilter : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.LowCutFilter : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA4DspEnum.HighCutFilter : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA4DspEnum.HighCutFilter : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.HighCutFilter : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA4DspEnum.CompressionRatio : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA4DspEnum.CompressionRatio : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.CompressionRatio : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA4DspEnum.CompressionThreshold : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA4DspEnum.CompressionThreshold : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.CompressionThreshold : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA4DspEnum.MaximumPowerOutput : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA4DspEnum.MaximumPowerOutput : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.MaximumPowerOutput : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA4DspEnum.EqualizerGain : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA4DspEnum.EqualizerGain : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.EqualizerGain : Swift.RawRepresentable {}
+extension JinHaoSDK.JinHaoA4DspEnum.FrequencyBand : Swift.Equatable {}
+extension JinHaoSDK.JinHaoA4DspEnum.FrequencyBand : Swift.Hashable {}
+extension JinHaoSDK.JinHaoA4DspEnum.FrequencyBand : Swift.RawRepresentable {}
+extension JinHaoSDK.DFUError : Swift.Equatable {}
+extension JinHaoSDK.DFUError : Swift.Hashable {}
+extension JinHaoSDK.DFUError : Swift.RawRepresentable {}
+extension JinHaoSDK.DFUState : Swift.Equatable {}
+extension JinHaoSDK.DFUState : Swift.Hashable {}
+extension JinHaoSDK.DFUState : Swift.RawRepresentable {}
 extension JinHaoSDK.AccessoryState : Swift.Equatable {}
 extension JinHaoSDK.AccessoryState : Swift.Hashable {}
 extension JinHaoSDK.AccessoryState : Swift.RawRepresentable {}
+extension JinHaoSDK.LogLevel : Swift.Equatable {}
+extension JinHaoSDK.LogLevel : Swift.Hashable {}
+extension JinHaoSDK.LogLevel : Swift.RawRepresentable {}
 extension JinHaoSDK.AccessoryOrientation : Swift.Equatable {}
 extension JinHaoSDK.AccessoryOrientation : Swift.Hashable {}
 extension JinHaoSDK.AccessoryOrientation : Swift.RawRepresentable {}
