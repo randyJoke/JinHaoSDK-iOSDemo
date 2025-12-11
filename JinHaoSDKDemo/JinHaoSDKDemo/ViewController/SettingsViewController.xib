@@ -223,7 +223,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="j22-Dr-cUC">
+                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="j22-Dr-cUC">
                                             <rect key="frame" x="65.333333333333343" y="0.0" width="309.66666666666663" height="31"/>
                                             <connections>
                                                 <action selector="eq250Action:" destination="-1" eventType="touchUpInside" id="yvX-lr-22Z"/>
@@ -240,7 +240,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="hAK-bW-l26">
+                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="hAK-bW-l26">
                                             <rect key="frame" x="73.333333333333343" y="0.0" width="301.66666666666663" height="31"/>
                                             <connections>
                                                 <action selector="eq1000Action:" destination="-1" eventType="touchUpInside" id="mCh-h4-nRH"/>
@@ -257,7 +257,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="8hq-Gy-PWB">
+                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="8hq-Gy-PWB">
                                             <rect key="frame" x="75.666666666666657" y="0.0" width="299.33333333333337" height="31"/>
                                             <connections>
                                                 <action selector="eq2000Action:" destination="-1" eventType="touchUpInside" id="rgJ-WT-zs9"/>

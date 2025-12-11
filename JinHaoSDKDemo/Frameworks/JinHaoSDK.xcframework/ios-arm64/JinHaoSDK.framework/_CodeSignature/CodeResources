@@ -4,13 +4,17 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		r03QXpsD71aj5o+x8N1ZdPjrf7Q=
+		</data>
 		<key>Info.plist</key>
 		<data>
 		onrTYTlEhgCm5qQRuNvmMJ+Exfg=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		uQvRdFH60lacrYA91otFCfoUHds=
+		vypJ8GCJt5UXxdDH7CjcFH3zONE=
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
@@ -30,7 +34,7 @@
 		</data>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		SakCcTtcOWs5XDw743/M3qqzgno=
+		7OSwfmQGHTmmSL66QtEtgm6l/9c=
 		</data>
 		<key>resources.bundle/horn.json</key>
 		<data>
@@ -51,7 +55,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			yhfIx6mvQIDAGi7eTWfOY1tO3e9dNDpjn9gvu0Lccso=
+			OBSLamSDurZMfj4sB9O+SCl9Ofi7R6GTr9lAYphje0w=
 			</data>
 		</dict>
 		<key>Modules/JinHaoSDK.swiftmodule/arm64-apple-ios.abi.json</key>
@@ -86,7 +90,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			iuHvMdDAKk9EPeKQfqSqAVgGPebEEXG9vs4nBGDr/Nw=
+			Ob2FRfMW2522Ay6ankJy72QQQMHaVf2SSiz5VGLX5ME=
 			</data>
 		</dict>
 		<key>resources.bundle/horn.json</key>
